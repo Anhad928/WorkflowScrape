@@ -16,7 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl={"/sign-in"}
+    appearance={{
+      elements: {
+        formButtonPrimary: "bg-primary hover:bg-primary/90 text-sm !shadow-none",
+      },
+    }}>
     <html lang="en">
       <body className={inter.className}>
         <AppProviders>{children}</AppProviders>
