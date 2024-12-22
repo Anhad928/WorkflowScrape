@@ -3,6 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import React, { Suspense } from 'react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, InboxIcon } from 'lucide-react';
+import CreateWorkflowDialog from './_components/CreateWorkflowDialog';
 
 function page() {
   return (
@@ -12,6 +13,7 @@ function page() {
             <h1 className='text-3xl font-bold'>Workflows</h1>
             <p className='text-muted-foreground'>Create and manage your workflows</p>
         </div>
+        <CreateWorkflowDialog/>
       </div>
       <div className='h-full py-6'>
         <Suspense fallback={<UserWorkflowsSkeleton/>}>
@@ -59,6 +61,7 @@ async function UserWorkflows(){
                     first workflow
                 </p>
             </div>
+            <CreateWorkflowDialog triggerText='Create your first workflow'/>
         </div>
     }
     return <div></div>;
