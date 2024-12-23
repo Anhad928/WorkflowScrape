@@ -11,12 +11,12 @@ import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 
 const routes = [
     {
-        href: "",
+        href: "home",
         label: "Home",
         icon: HomeIcon,
     },
     {
-        href: "workflows",
+        href: "Workflows",
         label: "Workflows",
         icon: Layers2Icon,
     },
