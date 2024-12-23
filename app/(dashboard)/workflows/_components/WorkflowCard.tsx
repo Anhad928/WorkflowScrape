@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils';
 import { WorkflowStatus } from '@/types/workflow';
 import { Workflow } from '@prisma/client'
-import { FileTextIcon, MoreVerticalIcon, PlayIcon, ShuffleIcon } from 'lucide-react';
+import { FileTextIcon, MoreVerticalIcon, PlayIcon, ShuffleIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
 
@@ -75,13 +75,25 @@ function WorkflowActions(){
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
+            
                 <Button variant={"outline"} size={"sm"}>
-                    <TooltipWrapper content={"MOre actions"}>
-                    <MoreVerticalIcon size={18}/>
-                    </TooltipWrapper>
+                <TooltipWrapper content={"More actions"}>
+                    <div className='flex items-center justify-center w-full h-full '>
+                        <MoreVerticalIcon size={18}/>
+                    </div>
+                </TooltipWrapper>
                 </Button>
-
+                
             </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            
+            <DropdownMenuSeparator/>
+            <DropdownMenuItem className='text-destrucitve flex items-center gap-2'>
+                <TrashIcon size={16} />
+                Delete
+            </DropdownMenuItem>
+            </DropdownMenuContent>
         </DropdownMenu>
     )
 }
