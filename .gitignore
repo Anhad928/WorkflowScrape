@@ -37,6 +37,12 @@ yarn-error.log*
 .env.development
 .env.test
 .env.production
+# prisma
+/prisma/.env
+/prisma/.env.development
+/prisma/.env.test
+/prisma/.env.production
+/prisma/dev.db
 
 # typescript
 *.tsbuildinfo
