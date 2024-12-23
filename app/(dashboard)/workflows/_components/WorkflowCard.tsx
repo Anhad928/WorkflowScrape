@@ -64,7 +64,7 @@ function WorkflowCard({ workflow}: { workflow: Workflow}) {
         )}>
             <ShuffleIcon size={16} />Edit
         </Link>
-        <WorkflowActions />
+        <WorkflowActions workflowName={workflow.name}/>
         </div>
     </CardContent>
 
@@ -72,11 +72,11 @@ function WorkflowCard({ workflow}: { workflow: Workflow}) {
 
 
 
-function WorkflowActions(){
+function WorkflowActions({workflowName}: {workflowName: string}) {
     const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
     return (
         <>
-        <DeleteWorkflowDialog open={showDeleteDialog} setOpen={setShowDeleteDialog} />
+        <DeleteWorkflowDialog open={showDeleteDialog} setOpen={setShowDeleteDialog} workflowName={workflowName} />
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
             
@@ -93,7 +93,7 @@ function WorkflowActions(){
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
             
             <DropdownMenuSeparator/>
-            <DropdownMenuItem className='text-destrucitve flex items-center gap-2'
+            <DropdownMenuItem className='text-destructive flex items-center gap-2'
             onSelect={() => {
                 setShowDeleteDialog((prev) => !prev);
             }}>
