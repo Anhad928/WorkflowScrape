@@ -7,6 +7,7 @@ export function CreateFlowNode(
 ): AppNode{
     return {
         id: crypto.randomUUID(),
+        type: "FlowScrapeNode",
         data:{
             type: nodeType,
             inputs: {},

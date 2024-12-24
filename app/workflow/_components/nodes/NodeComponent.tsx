@@ -4,7 +4,7 @@ import NodeCard from "./NodeCard";
 
 const NodeComponent = memo((props: NodeProps) => {
     return(
-        <NodeCard nodeId={props.id}>AppNode</NodeCard>
+        <NodeCard nodeId={props.id} isSelected={!!props.selected}>AppNode</NodeCard>
     )
 });
 

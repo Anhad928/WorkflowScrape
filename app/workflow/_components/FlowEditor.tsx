@@ -10,7 +10,7 @@ import { TaskType } from '@/types/task';
 import NodeComponent from './nodes/NodeComponent';
 
 const nodeTypes = {
-    Node: NodeComponent,
+    FlowScrapeNode: NodeComponent,
 
 }
 
