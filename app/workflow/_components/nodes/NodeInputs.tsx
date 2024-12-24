@@ -8,8 +8,8 @@ export function NodeInputs({ children }: { children: React.ReactNode }) {
 
 export function NodeInput({ input }: { input: any}) {
     return (
-        <div>
-            {input.name}
+        <div className="flex justify-start relative p-3 bg-secondary w-full">
+            <pre>{JSON.stringify(input, null, 4)}</pre>
         </div>
-    )
+    );
 }
