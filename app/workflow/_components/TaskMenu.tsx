@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { DragEvent } from 'react'
 import {
     Accordion,
     AccordionItem,
@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 export default function TaskMenu() {
   return (
     <aside className='w-[340px] min-w-[340px] max-w-[340px] border-r-2 border-separate h-full p-2 px-4 overflow-hidden'>
-        <Accordion type="multiple" className='w-full'>
+        <Accordion type="multiple" className='w-full' defaultValue={["extraction               "]}>
             <AccordionItem value="extraction">
                 <AccordionTrigger className='font-bold'>
                     Data Extraction
@@ -30,8 +30,14 @@ export default function TaskMenu() {
 
 function TaskMenuBtn({taskType}: {taskType: TaskType}) {
     const task = TaskRegistry[taskType];
-    return <Button variant={"secondary"} className='flex justify-between items-center gap-2 border w-full'>
-        <div>
+    const onDragStart = (event: DragEvent, type: TaskType) =>{
+        event.dataTransfer.setData("application/reactflow", type);
+        event.dataTransfer.effectAllowed = "move";
+    };
+    return <Button variant={"secondary"} className='flex justify-between items-center gap-2 border w-full'
+    draggable
+    onDragStart={event => onDragStart(event, taskType)}>
+        <div  className='flex gap-2 '>
             <task.icon size={20} />
             {task.label}
         </div>
