@@ -20,7 +20,7 @@ const fitViewOptions = { padding:1 };
 function FlowEditor({workflow}: {workflow: Workflow}) {
     const[nodes, setNodes, onNodesChange] = useNodesState([
         CreateFlowNode(TaskType.LAUNCH_BROWSER),
-    ]);
+    ]); 
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
 
