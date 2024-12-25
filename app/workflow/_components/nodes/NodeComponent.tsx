@@ -3,12 +3,12 @@ import { memo } from "react";
 import NodeCard from "./NodeCard";
 import NodeHeader from "./NodeHeader";
 import { AppNodeData } from "@/types/appNode";
-import { TakeRegistry } from "@/lib/workflow/task/registry";
+import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { NodeInput, NodeInputs } from "./NodeInputs";
 
 const NodeComponent = memo((props: NodeProps) => {
     const nodeData = props.data as AppNodeData;
-    const task = TakeRegistry[nodeData.type];
+    const task = TaskRegistry[nodeData.type];
     return(
         <NodeCard nodeId={props.id} isSelected={!!props.selected}>
             <NodeHeader taskType={nodeData.type}/>
