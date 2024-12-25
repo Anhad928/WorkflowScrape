@@ -4,12 +4,17 @@ import { Input } from '@/components/ui/input';
 import { TaskParam, TaskParamType } from '@/types/task';
 import React from 'react'
 import StringParam from './param/StringParam';
+import { useReactFlow } from '@xyflow/react';
+import { AppNode } from '@/types/appNode';
 
 function NodeParamField({
-    param
+    param, nodeId
 }:{
-    param: TaskParam
+    param: TaskParam, nodeId: string
 }) {
+  const {updateNodeData, getNode} = useReactFlow();
+  const node = getNode(nodeId) as AppNode;
+  const value = node?.data.inputs?.[param.name]; 
   switch(param.type) {
     case TaskParamType.STRING:
         return <StringParam param={param}/>

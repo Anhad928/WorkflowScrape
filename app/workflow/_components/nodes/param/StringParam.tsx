@@ -2,12 +2,8 @@
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { TaskParam } from '@/types/task';
+import { ParamProps } from '@/types/appNode';
 import React, { useId } from 'react'
-
-interface ParamProps{
-    param: TaskParam;
-}
 
 function StringParam({param }: ParamProps) {
     const id = useId();
