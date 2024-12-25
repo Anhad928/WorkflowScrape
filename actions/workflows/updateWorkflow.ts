@@ -3,6 +3,7 @@
 import { waitFor } from "@/lib/helper/waitFor";
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 
 export async function UpdateWorkflow({
     id, defination
@@ -41,5 +42,5 @@ export async function UpdateWorkflow({
             userId,
         },
     });
-
+    revalidatePath(`/workflows`);
 }
