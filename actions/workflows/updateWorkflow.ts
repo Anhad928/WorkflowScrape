@@ -1,5 +1,6 @@
 "use server";
 
+import { waitFor } from "@/lib/helper/waitFor";
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
@@ -9,6 +10,7 @@ export async function UpdateWorkflow({
     id: string,
     defination: string;
 }) {
+    await waitFor(3000);
     const { userId } = auth();
 
     if (!userId) {

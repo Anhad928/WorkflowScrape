@@ -22,7 +22,7 @@ function SaveBtn({ workflowId }: { workflowId: string}) {
     })
 
   return (
-    <Button variant={"outline"} className='flex items-center gap-2' onClick={() => {
+    <Button disabled={saveMutation.isPending} variant={"outline"} className='flex items-center gap-2' onClick={() => {
         const workflowDefination = JSON.stringify(toObject());
         toast.loading("Saving workflow", {id: "save-workflow"});
         saveMutation.mutate({
