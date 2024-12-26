@@ -50,7 +50,7 @@ function FlowEditor({workflow}: {workflow: Workflow}) {
             x: event.clientX,
             y: event.clientY
         })
-        const newNode = CreateFlowNode(taskType as TaskType);
+        const newNode = CreateFlowNode(taskType as TaskType, position);
         setNodes((nds) => nds.concat(newNode));
     }, []);
 

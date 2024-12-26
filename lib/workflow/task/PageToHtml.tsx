@@ -1,5 +1,5 @@
 import { TaskParamType, TaskType } from "@/types/task";
-import { CodeIcon, GlobeIcon, LucideProps } from "lucide-react";
+import { CodeIcon, Flashlight, GlobeIcon, LucideProps } from "lucide-react";
 
 export const PageToHtmlTask = {
     type: TaskType.PAGE_TO_HTML,
@@ -12,9 +12,17 @@ export const PageToHtmlTask = {
         {
             name: "Web Page",
             type: TaskParamType.BROWSER_INSTANCE,
-            helperText: "eg: https://www.google.com",
             required: true,
-            hideHandle: true,
+        },
+    ],
+    outputs: [
+        {
+            name: "HTML",
+            type: TaskParamType.STRING,
+        },
+        {
+            name: "Web Page",
+            type: TaskParamType.BROWSER_INSTANCE,
         },
     ],
 };
