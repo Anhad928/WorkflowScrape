@@ -11,6 +11,7 @@ import NodeComponent from './nodes/NodeComponent';
 import { AppNode } from '@/types/appNode';
 import { set } from 'date-fns';
 import DeletableEdge from './edges/DeletableEdge';
+import { TaskRegistry } from '@/lib/workflow/task/registry';
 
 const nodeTypes = {
     FlowScrapeNode: NodeComponent,
@@ -74,10 +75,38 @@ function FlowEditor({workflow}: {workflow: Workflow}) {
                 [connection.targetHandle]: "",
             },
         });
-        console.log("@UPDATED_NODE", node.id)
+        
     }, [setEdges, updateNodeData, nodes]);
     
-    console.log("@NODES", nodes);
+    const isValidConnection = useCallback((
+        connection: Edge | Connection
+    ) => {
+        // No self-connections allowed
+        if (connection.source === connection.target){
+            return false;
+        }
+
+        // same Taskparam type connection
+        const source = nodes.find(node => node.id === connection.source);
+        const target = nodes.find(node => node.id === connection.target);
+        if (!source || !target) {
+            console.error("Source or target node not found");
+            return false;
+        };
+        
+        const sourceTask = TaskRegistry[source.data.type];
+        const targetTask = TaskRegistry[target.data.type];
+
+        const output = sourceTask.outputs.find(o => o.name === connection.sourceHandle);
+        const input = targetTask.inputs.find(o => o.name === connection.targetHandle);
+        if (input?.type !== output?.type) {
+            console.error("invalid connectuion: type mismatch");
+            return false;
+        }
+        console.log("@@DEBUG", {input, output });
+        return true;
+    }, [nodes]);
+    
   return (
     <main className='h-full w-full'>
         <ReactFlow nodes={nodes} edges={edges}
@@ -92,6 +121,7 @@ function FlowEditor({workflow}: {workflow: Workflow}) {
         onDragOver={onDragOver}
         onDrop={onDrop}
         onConnect={onConnect}
+        isValidConnection={isValidConnection}
         >
 
         <Controls position='top-left' fitViewOptions={fitViewOptions}/>
