@@ -1,7 +1,7 @@
 "use client";
 
 import { Workflow } from '@prisma/client';
-import { addEdge, Background, BackgroundVariant, Connection, Controls, Edge, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
+import { addEdge, Background, BackgroundVariant, Connection, Controls, Edge, getOutgoers, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
 import React, { useCallback, useEffect } from 'react'
 
 import "@xyflow/react/dist/style.css";
@@ -103,9 +103,20 @@ function FlowEditor({workflow}: {workflow: Workflow}) {
             console.error("invalid connectuion: type mismatch");
             return false;
         }
-        console.log("@@DEBUG", {input, output });
-        return true;
-    }, [nodes]);
+
+        const hasCycle = (node: AppNode, visited = new Set()) => {
+            if (visited.has(node.id)) return false;
+            visited.add(node.id);
+
+            for (const outgoer of getOutgoers(node, nodes, edges)) {
+                if (outgoer.id === connection.source) return true;
+                if (hasCycle(outgoer, visited)) return true;
+            }
+        };
+        const detectedCycle = hasCycle(target);
+
+        return !detectedCycle;
+    }, [nodes, edges]);
     
   return (
     <main className='h-full w-full'>
