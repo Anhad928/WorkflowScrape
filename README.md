@@ -2,7 +2,7 @@
 
 Build a modern **workflow-based** web scraping SaaS with **Next.js**, **React**, **TypeScript**, **React Flow**, **Prisma**, and **React Query**. This project/course walks you through setting up authentication, crafting a workflow editor, connecting to databases, and ultimately providing a robust scraping automation platform for end users.
 
-> **Note**: This README focuses on the project's initial setup and core workflow functionalities — covering everything from project configuration to workflow creation and editing.
+> **Note**: This README focuses on the project's initial setup and core workflow functionalities—covering everything from project configuration to workflow creation and editing.
 
 ---
 
@@ -40,19 +40,73 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 
 ## 💻 Features Covered So Far
 
-Below are the main milestones we tackle:
-
-### 2️⃣ Project Setup
+### Project Setup
 - **Initialize Next.js with TypeScript**: Start a new project with `create-next-app` to get the ball rolling.  
 - **Install dependencies**: From React Flow to Prisma, ensure your environment is fully equipped.
 
-### 3️⃣ Auth Setup
+### Auth Setup
 - **Secure your application**: Implement sign-in, sign-out, and protect routes so only authenticated users can access certain pages.  
 - **User models with Prisma**: Tie authentication to a robust database model.
 
-### 4️⃣ Database Setup
+### Database Setup
 - **Configure Prisma**: Connect to a local or hosted database, run migrations, and set up your schema.  
 - **Seeding**: Populate initial data or seed for testing.
+
+### Workflows Page
+- **List workflows**: Show all available workflows for a user.  
+- **CRUD operations**: Create, read, update, and delete workflows using React Query for data fetching.
+
+### Workflow Card
+- **Quick info**: Display the name, status, and other key metadata for each workflow.  
+- **Link to edit**: A clickable card to jump into editing mode.
+
+### Delete Workflow Dialog
+- **Confirmation**: Avoid accidental deletions with a modal pop-up.  
+- **UI feedback**: Show spinners or success/error messages.
+
+### Workflow Introduction
+- **Conceptual overview**: Understand nodes, edges, tasks, and how they form a workflow.  
+- **Planning**: Discover how tasks connect to form a bigger scraping pipeline.
+
+### Workflow Editor
+- **Drag-and-drop**: Utilize React Flow to let users visually manage tasks and connections.  
+- **Zoom & pan**: Navigate large workflows with an intuitive UI.
+
+### Extract Text from Element Task
+- **Scraping 101**: Demonstrate how to parse a webpage’s DOM.  
+- **Task parameters**: Save selectors or special filters in your database.
+
+### Node Component
+- **Custom design**: A React component to render each “task node” in the workflow.  
+- **Props & state**: Manage inputs/outputs via props for dynamic updates.
+
+### Task/Node Inputs
+- **Input structure**: Define how data flows in, ensuring the node can perform its job.  
+- **Validation**: Check if all required fields (e.g., selectors) are provided.
+
+### Save Button
+- **Persist changes**: Commit the current workflow state to the server.  
+- **Optimistic updates**: Provide instant UI feedback while saving in the background.
+
+### Task Menu
+- **Context menu**: Quickly add or configure tasks.  
+- **Improved UX**: A polished menu for editing node details, naming tasks, etc.
+
+### Task/Node Outputs
+- **Data chaining**: Pass results from one task to the next.  
+- **Edge definitions**: Outline what data points can connect to other nodes.
+
+### Deletable Edge
+- **Edit connections**: Remove unwanted links between nodes.  
+- **Flexibility**: Let users rewire tasks as their scraping logic evolves.
+
+### Connections Validation
+- **Check compatibility**: Only connect outputs to matching inputs.  
+- **Error handling**: Prevent invalid links or missing fields.
+
+### Delete/Duplicate Task
+- **Removal**: Get rid of tasks you no longer need.  
+- **Duplication**: Clone tasks/nodes if you need a similar configuration in your workflow.
 
 ---
 
@@ -62,6 +116,7 @@ Below are the main milestones we tackle:
    ```bash
    git clone https://github.com/your-username/scrapeflow.git
    cd scrapeflow
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
