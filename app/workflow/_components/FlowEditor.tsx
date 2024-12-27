@@ -59,7 +59,7 @@ function FlowEditor({workflow}: {workflow: Workflow}) {
         })
         const newNode = CreateFlowNode(taskType as TaskType, position);
         setNodes((nds) => nds.concat(newNode));
-    }, []);
+    }, [screenToFlowPosition, setNodes]);
 
     const onConnect = useCallback((connection: Connection) => {
         setEdges((eds) => addEdge({...connection, animated: true}, eds));
@@ -75,7 +75,7 @@ function FlowEditor({workflow}: {workflow: Workflow}) {
             },
         });
         console.log("@UPDATED_NODE", node.id)
-    }, [setEdges, updateNodeData]);
+    }, [setEdges, updateNodeData, nodes]);
     
     console.log("@NODES", nodes);
   return (

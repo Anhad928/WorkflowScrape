@@ -22,10 +22,16 @@ export function NodeInput({ input, nodeId }: { input: TaskParam, nodeId: string 
         <div className="flex justify-start relative p-3 bg-secondary w-full">
             <NodeParamField param={input} nodeId={nodeId} disabled={isConnected}/>
             {!input.hideHandle && (
-            <Handle id={input.name} type="target" position={Position.Left}
+            <Handle  
+            id={input.name} 
+            isConnectable={!isConnected}
+            type="target" 
+            position={Position.Left}
             className={cn("!bg-muted-foreground !border-2 !border-background !-left-2 !w-4 !h-4"
                 , ColorForHandle[input.type]
-            )}/>)}
+            )}
+            />
+            )}
         </div>
     );
 }
