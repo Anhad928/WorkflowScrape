@@ -38,6 +38,16 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 
 ---
 
+## 🤔 Why This TechStack ????????
+
+- **Next.js:** Balances server-side rendering (SSR) with static site generation (SSG), offering optimized performance and SEO benefits.
+- **React & TypeScript:** A powerful combo for building robust, type-safe UIs with minimal runtime errors.
+- **React Flow:** Perfect for visualizing node-based processes such as scraping workflows, data transformations, or automation pipelines.
+- **Prisma:** Streamlines database operations with a type-safe, intuitive API, reducing common DB mistakes.
+- **React Query:** Eliminates heavy lifting around async data fetching and caching, making your data layer more maintainable.
+
+---
+
 ## 💻 Features Covered So Far
 
 ### Project Setup
@@ -136,16 +146,6 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 npx prisma migrate dev
 ```
 - **This will sync your database schema.**
-
----
-
-## 🤔 Why This TechStack ????????
-
-- **Next.js:** Balances server-side rendering (SSR) with static site generation (SSG), offering optimized performance and SEO benefits.
-- **React & TypeScript:** A powerful combo for building robust, type-safe UIs with minimal runtime errors.
-- **React Flow:** Perfect for visualizing node-based processes such as scraping workflows, data transformations, or automation pipelines.
-- **Prisma:** Streamlines database operations with a type-safe, intuitive API, reducing common DB mistakes.
-- **React Query:** Eliminates heavy lifting around async data fetching and caching, making your data layer more maintainable.
 
 ---
 
