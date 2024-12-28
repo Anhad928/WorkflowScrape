@@ -34,7 +34,7 @@ export default function Topbar({title, subtitle, workflowId}: Props) {
             </div>
         </div>
         <div className='flex gap-1 flex-1 justify-end'>
-            <ExecuteBtn />
+            <ExecuteBtn workflowId={workflowId} />
             <SaveBtn workflowId={workflowId}/>
         </div>
     </header>
