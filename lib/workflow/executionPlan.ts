@@ -64,6 +64,28 @@ function getInvalidInputs(node: AppNode, edges:Edge[], planned: Set<string>){
     for ( const input of inputs){
         const inputValue = node.data.inputs[input.name];
         const inputValueProvided = inputValue?.length > 0;
+        if (inputValueProvided){
+            // this input is fine, so we can move on
+            continue;
+        }
+
+        //if a value is not provided by the user then we need to check
+        // if there is an output linked to the current input
+        const incomingEdges = edges.filter((edge) => edge.target === node.id);
+
+        const inputEdgedByOutput = incomingEdges.find(
+            (edge) => edge.targetHandle === input.name
+        );
+        const requiredInputProvidedByVisitedOutput = 
+            input.required &&
+            inputEdgedByOutput &&
+            planned.has(inputEdgedByOutput.source);
+        
+        if (!requiredInputProvidedByVisitedOutput){
+            // the inputs is required and we have ta valid value for it
+            // provided by a task thaty is already planned
+            continue;
+        }
     }
         
     
