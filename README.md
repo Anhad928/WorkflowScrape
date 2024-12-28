@@ -123,8 +123,8 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 ---
 
 ## Set up environment variables 
-- **Create a .env file with your database URL and other secrets.
-- **Example:
+- **Create a .env file with your database URL and other secrets.**
+- **Example:**
   ```bash
   DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
   ```
@@ -135,17 +135,17 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 ```bash
 npx prisma migrate dev
 ```
-- **This will sync your database schema.
+- **This will sync your database schema.**
 
 ---
 
 ## 🤔 Why This TechStack ????????
 
-- **Next.js: Balances server-side rendering (SSR) with static site generation (SSG), offering optimized performance and SEO benefits.
-- **React & TypeScript: A powerful combo for building robust, type-safe UIs with minimal runtime errors.
-- **React Flow: Perfect for visualizing node-based processes such as scraping workflows, data transformations, or automation pipelines.
-- **Prisma: Streamlines database operations with a type-safe, intuitive API, reducing common DB mistakes.
-- **React Query: Eliminates heavy lifting around async data fetching and caching, making your data layer more maintainable.
+- **Next.js:** Balances server-side rendering (SSR) with static site generation (SSG), offering optimized performance and SEO benefits.
+- **React & TypeScript:** A powerful combo for building robust, type-safe UIs with minimal runtime errors.
+- **React Flow:** Perfect for visualizing node-based processes such as scraping workflows, data transformations, or automation pipelines.
+- **Prisma:** Streamlines database operations with a type-safe, intuitive API, reducing common DB mistakes.
+- **React Query:** Eliminates heavy lifting around async data fetching and caching, making your data layer more maintainable.
 
 ---
 
