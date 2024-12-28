@@ -94,7 +94,10 @@ function getInvalidInputs(node: AppNode, edges:Edge[], planned: Set<string>){
                 continue;
             }
         } 
+
+        invalidInputs.push(input.name);
     }
-        
+    
+    return invalidInputs;
     
 }
