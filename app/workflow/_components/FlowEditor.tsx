@@ -75,8 +75,9 @@ function FlowEditor({workflow}: {workflow: Workflow}) {
                 [connection.targetHandle]: "",
             },
         });
-        
+        console.log("onConnect", connection);
     }, [setEdges, updateNodeData, nodes]);
+    
     
     const isValidConnection = useCallback((
         connection: Edge | Connection

@@ -28,8 +28,10 @@ export function FlowToExecutionPlan(
     },
 ];
 
+planned.add(entryPoint.id);
+
     for (let phase = 2;
-        phase <= nodes.length || planned.size < nodes.length; phase++
+        phase <= nodes.length && planned.size < nodes.length; phase++
     ){
         const nextPhase: WorkflowExecutionPlanPhase = { phase, nodes: [] };
         for (const currentNode of nodes){
@@ -51,8 +53,12 @@ export function FlowToExecutionPlan(
                 }
             }
             nextPhase.nodes.push(currentNode);
-            planned.add(currentNode.id);
+            
         }
+        for (const node of nextPhase.nodes){
+            planned.add(node.id);
+        }
+        executionPlan.push(nextPhase);
     }
 
     return {executionPlan};
@@ -80,8 +86,8 @@ function getInvalidInputs(node: AppNode, edges:Edge[], planned: Set<string>){
             input.required &&
             inputLinkedToOutput &&
             planned.has(inputLinkedToOutput.source);
-        
-        if (!requiredInputProvidedByVisitedOutput){
+        // FUCKING 1 "!" ruined my life
+        if (requiredInputProvidedByVisitedOutput){
             // the inputs is required and we have ta valid value for it
             // provided by a task thaty is already planned
             continue;
