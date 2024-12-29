@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { WorkflowExecutionPlan, WorkflowExecutionPlanPhase } from "@/types/workflow";
+import { FlowToExecutionPlan } from "@/lib/workflow/executionPlan";
 
 export async function RunWorkflow(form: {
     workflowId: string;
@@ -24,9 +25,26 @@ export async function RunWorkflow(form: {
             id: workflowId,
         },
     });
+
+    if (!workflow) {
+        throw new Error("workflow not found");
+    }
     
     let executionPlan: WorkflowExecutionPlan;
     if (!flowDefination){
         throw new Error("flow defination is not defined");
     }
+
+    const flow = JSON.parse(flowDefination);
+    const result = FlowToExecutionPlan(flow.nodes, flow.edges);
+    if (result.error) {
+        throw new Error("flow defination not valid");
+    }
+
+    if (!result.executionPlan) {
+        throw new Error("no execution plan generated");
+    }
+
+    executionPlan = result.executionPlan;
+    console.log("Execution Plan", executionPlan);
 }
