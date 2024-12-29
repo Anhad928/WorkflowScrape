@@ -6,7 +6,7 @@ import React from 'react'
 export default function BrowserInstanceParam({param}: ParamProps) {
   return (
     <p className='text-xs'>
-        {param.value}
+        {param.name}
     </p>
   );
 }
