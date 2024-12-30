@@ -1,4 +1,4 @@
-# 🚀 Workflow Scrape: A Full Stack SaaS Project in Next.js
+# 🚀 Workflow Scrape
 
 Build a modern **workflow-based** web scraping SaaS with **Next.js**, **React**, **TypeScript**, **React Flow**, **Prisma**, and **React Query**. This project/course walks you through setting up authentication, crafting a workflow editor, connecting to databases, and ultimately providing a robust scraping automation platform for end users.
 
