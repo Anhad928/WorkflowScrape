@@ -1,5 +1,7 @@
+import { GetWorkflowExecutionWithPhases } from "@/actions/workflows/getWorkflowExecutionWithPhases";
 import Topbar from "@/app/workflow/_components/topbar/Topbar";
 import { waitFor } from "@/lib/helper/waitFor";
+import { auth } from "@clerk/nextjs/server";
 import { Loader2Icon } from "lucide-react";
 import { Suspense } from "react";
 
@@ -37,10 +39,14 @@ async function ExecutionViewersWrapper({
 }: {
     executionId: string;
 }) {
-    await waitFor(5000 );
+
+    const workflowExecution = await GetWorkflowExecutionWithPhases(executionId);
+    if (!workflowExecution) {
+        return <div>Not found</div>;
+    }
     return (
-        <div>
-            Wrapper
-        </div>
+        <pre>
+            {JSON.stringify(workflowExecution, null, 4)}
+        </pre>
     )
 }
