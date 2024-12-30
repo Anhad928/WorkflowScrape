@@ -30,7 +30,7 @@ model Workflow{
 }
 
 
-model WorkflowExecution {
+model WorkflowExecution{
   id String @id @default(cuid())
   workflowId String
   userId String
@@ -51,6 +51,7 @@ model ExecutionPhase{
   status String
   number Int
   node String
+  name String
   startedAt DateTime?
   completedAt DateTime?
   inputs String?
@@ -58,6 +59,6 @@ model ExecutionPhase{
 
   creditsCost Int?
 
-  WorkflowExecutionId String
-  execution WorkflowExecution @relation(fields: [WorkflowExecutionId], references: [id], onDelete: Cascade)
+  workflowExecutionId String
+  execution WorkflowExecution @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
 }
