@@ -4,6 +4,7 @@ import { waitFor } from "@/lib/helper/waitFor";
 import { auth } from "@clerk/nextjs/server";
 import { Loader2Icon } from "lucide-react";
 import { Suspense } from "react";
+import ExecutionViewer from "./_components/ExecutionViewer";
 
 export default function ExecutionViewersPage({
     params,
@@ -45,8 +46,6 @@ async function ExecutionViewersWrapper({
         return <div>Not found</div>;
     }
     return (
-        <pre>
-            {JSON.stringify(workflowExecution, null, 4)}
-        </pre>
+        <ExecutionViewer initialData={workflowExecution}/> 
     )
 }
