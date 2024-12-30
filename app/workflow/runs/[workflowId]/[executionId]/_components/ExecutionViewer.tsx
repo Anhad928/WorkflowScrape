@@ -4,11 +4,13 @@ import { GetWorkflowExecutionWithPhases } from '@/actions/workflows/getWorkflowE
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { DatesToDurationString } from '@/lib/helper/dates';
+import { GetPhasesTotalCost } from '@/lib/helper/phases';
 import { WorkflowExecutionStatus } from '@/types/workflow';
 
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
-import { CalendarIcon, CircleDashedIcon, ClockIcon, CoinsIcon, LucideIcon, WorkflowIcon } from 'lucide-react';
+import { CalendarIcon, CircleDashedIcon, ClockIcon, CoinsIcon, Loader2Icon, LucideIcon, WorkflowIcon } from 'lucide-react';
 import React, { ReactNode } from 'react'
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>
@@ -26,6 +28,7 @@ export default function ExecutionViewer({
     });
 
     const duration = DatesToDurationString(query.data?.completedAt, query.data?.startedAt);
+    const creditsConsumed = GetPhasesTotalCost(query.data?.phases || []);
   return (
     <div className='flex w-full h-full'>
       <aside className='w=[440px] min-w-[440px] max-w-[440px] border-r-2
@@ -46,7 +49,7 @@ export default function ExecutionViewer({
             <ExecutionLabel 
                 icon = {ClockIcon}
                 label = "Duration"
-                value = {"TODO"}
+                value = {duration ? duration : <Loader2Icon className='animate-spin' size={20}/>}
             />
             <ExecutionLabel 
                 icon = {CoinsIcon}
