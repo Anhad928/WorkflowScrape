@@ -32,6 +32,10 @@ export enum WorkflowExecutionStatus {
     FAILED = "FAILED",
 }
 
+export enum WorkflowExecutionTrigger {
+    MANUAL = "MANUAL",
+}
+
 export enum ExecutionPhaseStatus {
     CREATED = "CREATED",
     PENDING = "PENDING",
