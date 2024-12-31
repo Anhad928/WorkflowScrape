@@ -29,6 +29,13 @@ export default function ExecutionViewer({
         refetchInterval: (q) => q.state.data?.status === WorkflowExecutionStatus.RUNNING ? 1000 : false,
     });
 
+    const phaseDetails = useQuery({
+        queryKey: ["phaseDetails", selectedPhase],
+        enabled: selectedPhase !== null,
+        queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
+    });
+
+    const isRunning = query.data?.status === WorkflowExecutionStatus.RUNNING;
     const duration = DatesToDurationString(query.data?.completedAt, query.data?.startedAt);
     const creditsConsumed = GetPhasesTotalCost(query.data?.phases || []);
   return (
@@ -70,7 +77,8 @@ export default function ExecutionViewer({
         <Separator />
         <div className='overflow-auto h-full px-2 py-4'>
             {query.data?.phases.map((phase, index) => (
-                <Button key={phase.id} className='w-full justify-between' variant={"ghost"} onClick={() => {
+                <Button key={phase.id} className='w-full justify-between' variant={selectedPhase === phase.id ? "secondary" : "ghost"} onClick={() => {
+                    if (isRunning) return;
                     setSelectedPhase(phase.id);;
                 }}>
                     <div className='flex items-center gap-2'>
