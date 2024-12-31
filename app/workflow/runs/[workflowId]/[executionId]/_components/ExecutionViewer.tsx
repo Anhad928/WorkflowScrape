@@ -11,7 +11,7 @@ import { WorkflowExecutionStatus } from '@/types/workflow';
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 import { CalendarIcon, CircleDashedIcon, ClockIcon, CoinsIcon, Loader2Icon, LucideIcon, WorkflowIcon } from 'lucide-react';
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>
 
@@ -20,6 +20,8 @@ export default function ExecutionViewer({
 }: {
     initialData: ExecutionData;
 }) {
+    const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
+
     const query = useQuery({
         queryKey: ["execution", initialData?.id],
         initialData,
@@ -54,7 +56,7 @@ export default function ExecutionViewer({
             <ExecutionLabel 
                 icon = {CoinsIcon}
                 label = "Credits consumed"
-                value = {"TODO"}
+                value = {creditsConsumed}
             />
 
         </div>
@@ -68,11 +70,16 @@ export default function ExecutionViewer({
         <Separator />
         <div className='overflow-auto h-full px-2 py-4'>
             {query.data?.phases.map((phase, index) => (
-                <Button key={phase.id} className='w-full justify-between' variant={"ghost"}>
+                <Button key={phase.id} className='w-full justify-between' variant={"ghost"} onClick={() => {
+                    setSelectedPhase(phase.id);;
+                }}>
                     <div className='flex items-center gap-2'>
                         <Badge variant={"outline"}>{index + 1}</Badge>
                         <p className='font-semibold'>{phase.name}</p>
                     </div>
+                    <p className='text-xs text-muted-foreground'>
+                        {phase.status}
+                    </p>
                 </Button>
             ))}
         </div>
