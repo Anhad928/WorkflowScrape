@@ -52,6 +52,17 @@ async function initializeWorkflowExecution(executionId: string, workflowId: stri
         data: {
             startedAt: new Date(),
             status: WorkflowExecutionStatus.RUNNING,
+        },
+    });
+
+    await prisma.workflow.update({
+        where: {
+            id: workflowId,
+        },
+        data:{
+            lastRunAt: new Date(),
+            lastRunStatus: WorkflowExecutionStatus.RUNNING,
+            lastRunId: executionId,
         }
     })
 }
