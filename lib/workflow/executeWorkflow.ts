@@ -7,6 +7,7 @@ import { ExecutionPhase } from "@prisma/client";
 import { AppNode } from "@/types/appNode";
 import { TaskRegistry } from "./task/registry";
 import { TaskType } from "@/types/task";
+import { ExecutorRegistry } from "./executor/registry";
 
 export async function ExecuteWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
@@ -171,5 +172,10 @@ async function executePhase(
     phase: ExecutionPhase,
     node: AppNode,
 ): Promise<boolean> {
-    const runFn = ExecutorRegi
+    const runFn = ExecutorRegistry[node.data.type];
+    if (!runFn) {
+        return false;
+    }
+
+    return await runFn();
 }
