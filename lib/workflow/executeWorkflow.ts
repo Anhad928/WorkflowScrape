@@ -147,7 +147,7 @@ async function executeWorkflowPhase(phase: ExecutionPhase) {
     // TODO: decrement user balance ( with required credits )
 
     // Execute phase simulation
-    const success = executePhase(phase, node);
+    const success = await executePhase(phase, node);
 
     await finalizePhase(phase.id, success );
     return { success };
