@@ -130,6 +130,27 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 - **Validation**: Ensure each node is properly configured and that no critical connections are missing.  
 - **Execution**: Trigger the actual pipeline once validation passes, providing real-time feedback or logs for each step.
 
+## Workflow execution viewer
+- Build a UI to visualize execution progress and logs.
+- Provide real-time updates or job statuses.
+
+---
+
+## Workflow execution part 2
+- Delve deeper into execution mechanics (parallel vs. sequential).
+- Handle potential errors mid-workflow.
+
+---
+
+## Execution environment
+- Discuss the runtime environment (Node.js, headless browser, etc.).
+- Manage environment variables or user credentials securely.
+
+---
+
+## Workflow execution part 3
+- Further refine the execution process, including timeouts or retries.
+- Introduce advanced debugging or logging.
 ---
 
 ## Set up environment variables 
