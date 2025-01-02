@@ -7,6 +7,7 @@ import { FlowToExecutionPlan } from "@/lib/workflow/executionPlan";
 import { start } from "repl";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { redirect } from "next/navigation";
+import { ExecuteWorkflow } from "@/lib/workflow/executeWorkflow";
 
 export async function RunWorkflow(form: {
     workflowId: string;
@@ -85,6 +86,4 @@ export async function RunWorkflow(form: {
     redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 }
 
-function ExecuteWorkflow(id: string) {
-    throw new Error("Function not implemented.");
-}
+

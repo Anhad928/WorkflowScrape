@@ -2,8 +2,9 @@ import "server-only";
 import prisma from "../prisma";
 import { revalidatePath } from "next/cache";
 import { ExecutionPhaseStatus, WorkflowExecutionStatus } from "@/types/workflow";
+import { waitFor } from "../helper/waitFor";
 
-export async function executeWorkflow(executionId: string) {
+export async function ExecuteWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
         where: {
             id: executionId,
@@ -36,6 +37,7 @@ export async function executeWorkflow(executionId: string) {
     let creditsConsumed = 0;
     let executionFailed = false;
     for (const phase of execution.phases) {
+        await waitFor(3000)
         // TODO: consume credits
         // TODO: execute phase
     }
@@ -96,7 +98,22 @@ async function finalizeWorkflowExecution(
         data: {
             status: finalStatus,
             completedAt: new Date(),
+            creditsConsumed,
+        },
+    });
+
+    await prisma.workflow.update({
+        where: {
+            id: workflowId,
+            lastRunId: executionId,
+        },
+        data: {
+            lastRunStatus: finalStatus,
             
-        }
+        },
+    }).catch((err) => {
+        //ignore
+        //  this means that we have triggered other runs for this workflow
+        // while an execution was running
     })
 }
