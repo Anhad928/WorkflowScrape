@@ -1,6 +1,7 @@
 import "server-only";
 import prisma from "../prisma";
 import { revalidatePath } from "next/cache";
+import { WorkflowExecutionStatus } from "@/types/workflow";
 
 export async function executeWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
@@ -17,10 +18,20 @@ export async function executeWorkflow(executionId: string) {
         throw new Error("Execution not found");
     }
 
-    //TODO: setup execution enviornment
+    const enviornment = { phases: {
+        launchBrowser: {
+            inputs:{
+                websiteUrl: "www.google.com",
+            },
+            outputs: {
+                browser: "PuppetterInstance",
+            },
+        },
+    },
+    };
 
-    // TODO: initialize workflow execution
-    //todo: initialize workflow status
+    await initializeWorkflowExecution(executionId, execution.workflowId);
+    // todo: initialize workflow status
 
     let executionFailed = false;
     for (const phase of execution.phases) {
@@ -31,4 +42,16 @@ export async function executeWorkflow(executionId: string) {
     // TODO: clean up enviornment
 
     revalidatePath("/workflows/runs")
+}
+
+
+
+async function initializeWorkflowExecution(executionId: string, workflowId: string) {
+    await prisma.workflowExecution.update({
+        where: { id: executionId },
+        data: {
+            startedAt: new Date(),
+            status: WorkflowExecutionStatus.RUNNING,
+        }
+    })
 }
