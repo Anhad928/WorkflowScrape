@@ -143,4 +143,26 @@ async function executeWorkflowPhase(phase: ExecutionPhase) {
     console.log(`Executing phase ${phase.name} with ${creditsRequired} credits required`);
 
     // TODO: decrement user balance ( with required credits )
+
+    // Execute phase simulation
+    await waitFor(2000);
+    const success = Math.random() < 0.7;
+
+    await finalizePhase(phase.id, success );
+    return { success };
+}
+
+
+async function finalizePhase(phaseId: string, success: boolean) {
+    const finalStatus = success ? ExecutionPhaseStatus.COMPLETED : ExecutionPhaseStatus.FAILED;
+
+    await prisma.executionPhase.update({
+        where: {
+            id: phaseId,
+        },
+        data: {
+            status: finalStatus,
+            completedAt: new Date(),
+        }
+    });
 }
