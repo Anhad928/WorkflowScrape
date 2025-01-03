@@ -2,7 +2,7 @@ import { Browser } from "puppeteer";
 
 export type Enviornment = {
     browser?: Browser;
-    // phases with PhaseId as key
+    // phases with nodeId/taskId as key
 
     phases: Record<
     string, // key: PhaseId
