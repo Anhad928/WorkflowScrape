@@ -169,7 +169,7 @@ async function executePhase(
         return false;
     }
 
-    const ExecutionEnviornment: ExecutionEnviornment = createExecutionEnviornment(node, enviornment);
+    const ExecutionEnviornment: ExecutionEnviornment<any> = createExecutionEnviornment(node, enviornment);
     return await runFn(ExecutionEnviornment);
 }
 

@@ -1,4 +1,5 @@
 import { Browser } from "puppeteer";
+import { WorkflowTask } from "./workflow";
 
 export type Enviornment = {
     browser?: Browser;
@@ -14,6 +15,6 @@ export type Enviornment = {
 };
 
 
-export type ExecutionEnviornment = {
-    getInput(name: string): string;
+export type ExecutionEnviornment<T extends WorkflowTask> = {
+    getInput(name: T["inputs"][number]["name"]): string;
 }
