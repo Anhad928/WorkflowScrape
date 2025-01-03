@@ -1,5 +1,17 @@
+import { waitFor } from '@/lib/helper/waitFor';
+import puppeteer from 'puppeteer';
+
 
 export async function LaunchBrowserExecutor(): Promise<boolean> {
-    console.log("Running launch browser executor");
-    return true;
+    try {
+        const browser = await puppeteer.launch({
+            headless: false, // for testing
+        });
+        await waitFor(3000);
+        await browser.close();
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
 }
