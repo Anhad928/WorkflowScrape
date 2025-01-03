@@ -1,11 +1,14 @@
-export type Enviornment = {
+import { Browser } from "puppeteer";
 
+export type Enviornment = {
+    browser?: Browser;
     // phases with PhaseId as key
 
-    phases: {
-        [key:string]: {
-            inputs: Record<string, string>;
-            outputs: Record<string, string>;
-        };
-    };
+    phases: Record<
+    string, // key: PhaseId
+    {
+        inputs: Record<string, string>,
+        outputs: Record<string, string>,
+    }
+    >;
 };

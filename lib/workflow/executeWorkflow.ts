@@ -8,6 +8,7 @@ import { AppNode } from "@/types/appNode";
 import { TaskRegistry } from "./task/registry";
 import { TaskType } from "@/types/task";
 import { ExecutorRegistry } from "./executor/registry";
+import { Enviornment } from "@/types/executor";
 
 export async function ExecuteWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
@@ -24,17 +25,7 @@ export async function ExecuteWorkflow(executionId: string) {
         throw new Error("Execution not found");
     }
 
-    const enviornment = { phases: {
-        launchBrowser: {
-            inputs:{
-                websiteUrl: "www.google.com",
-            },
-            outputs: {
-                browser: "PuppetterInstance",
-            },
-        },
-    },
-    };
+    const enviornment: Enviornment = { phases: {} };
 
     await initializeWorkflowExecution(executionId, execution.workflowId);
     await initializePhaseStatuses(execution);
@@ -43,7 +34,7 @@ export async function ExecuteWorkflow(executionId: string) {
     let executionFailed = false;
     for (const phase of execution.phases) {
         // TODO: consume credits
-        const phaseExecution = await executeWorkflowPhase(phase);
+        const phaseExecution = await executeWorkflowPhase(phase, enviornment);
         if (!phaseExecution.success) {
             executionFailed = true;
             break;
@@ -127,7 +118,7 @@ async function finalizeWorkflowExecution(
 }
 
 
-async function executeWorkflowPhase(phase: ExecutionPhase) {
+async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornment) {
     const startedAt = new Date();
     const node = JSON.parse(phase.node) as AppNode;
 
@@ -147,7 +138,7 @@ async function executeWorkflowPhase(phase: ExecutionPhase) {
     // TODO: decrement user balance ( with required credits )
 
     // Execute phase simulation
-    const success = await executePhase(phase, node);
+    const success = await executePhase(phase, node, enviornment);
 
     await finalizePhase(phase.id, success );
     return { success };
