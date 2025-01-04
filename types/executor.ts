@@ -1,8 +1,9 @@
-import { Browser } from "puppeteer";
+import { Browser, Page } from "puppeteer";
 import { WorkflowTask } from "./workflow";
 
 export type Enviornment = {
     browser?: Browser;
+    page?: Page;
     // phases with nodeId/taskId as key
 
     phases: Record<
@@ -20,4 +21,7 @@ export type ExecutionEnviornment<T extends WorkflowTask> = {
 
     getBrowser(): Browser | undefined;   
     setBrowser(browser: Browser) : void;
+
+    getPage(): Page | undefined;
+    setPage(page: Page): void;
 }
