@@ -43,7 +43,8 @@ export async function ExecuteWorkflow(executionId: string) {
     }
 
     await finalizeWorkflowExecution(executionId, execution.workflowId, executionFailed, creditsConsumed);
-    // TODO: clean up enviornment
+    
+    await cleanupEnviornment(enviornment);
 
     revalidatePath("/workflows/runs")
 }
@@ -201,4 +202,14 @@ function createExecutionEnviornment(node: AppNode, enviornment: Enviornment) : E
         getPage: () => enviornment.page,    
         setPage: (page:Page) => (enviornment.page = page),
     };
+}
+
+async function cleanupEnviornment(enviornment: Enviornment) {
+    // if (enviornment.page) {
+    //     await enviornment.page.close();
+    // }
+
+    if (enviornment.browser) {
+        await enviornment.browser.close().catch(err => console.log("cannot close browser, reason:", err));
+    }
 }
