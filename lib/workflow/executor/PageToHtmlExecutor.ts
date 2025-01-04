@@ -6,7 +6,7 @@ export async function PageToHtmlExecutor(
     enviornment: ExecutionEnviornment<typeof PageToHtmlTask>
 ): Promise<boolean> {
     try {
-        const websiteUrl = enviornment.getInput("Web page");
+        const websiteUrl = enviornment.getInput("Web Page");
         console.log("@@WEBSITE URL", websiteUrl);
         return true;
     } catch (error) {

@@ -128,6 +128,7 @@ async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornm
         data: {
             startedAt,
             status: ExecutionPhaseStatus.RUNNING,
+            inputs: JSON.stringify(enviornment.phases[node.id].inputs),
         },
     });
 

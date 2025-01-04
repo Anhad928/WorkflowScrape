@@ -12,7 +12,7 @@ export const PageToHtmlTask = {
     credits: 2,
     inputs: [
         {
-            name: "Web page",
+            name: "Web Page",
             type: TaskParamType.BROWSER_INSTANCE,
             required: true,
         },
@@ -23,7 +23,7 @@ export const PageToHtmlTask = {
             type: TaskParamType.STRING,
         },
         {
-            name: "Web page",
+            name: "Web Page",
             type: TaskParamType.BROWSER_INSTANCE,
         },
     ] as const,
