@@ -143,12 +143,13 @@ async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornm
     // Execute phase simulation
     const success = await executePhase(phase, node, enviornment);
 
-    await finalizePhase(phase.id, success );
+    const outputs = enviornment.phases[node.id].outputs;
+    await finalizePhase(phase.id, success, outputs );
     return { success };
 }
 
 
-async function finalizePhase(phaseId: string, success: boolean) {
+async function finalizePhase(phaseId: string, success: boolean, outputs: any) {
     const finalStatus = success ? ExecutionPhaseStatus.COMPLETED : ExecutionPhaseStatus.FAILED;
 
     await prisma.executionPhase.update({
@@ -158,6 +159,8 @@ async function finalizePhase(phaseId: string, success: boolean) {
         data: {
             status: finalStatus,
             completedAt: new Date(),
+            outputs: JSON.stringify(outputs),   
+            
         }
     });
 }
@@ -194,6 +197,9 @@ function setupEnviornmentForPhase(node: AppNode, enviornment: Enviornment) {
 function createExecutionEnviornment(node: AppNode, enviornment: Enviornment) : ExecutionEnviornment<any> {
     return {
         getInput: (name:string) => enviornment.phases[node.id]?.inputs[name],
+        setOutput: (name: string, value: string) => {
+            enviornment.phases[node.id].outputs[name] = value;
+        },
 
         getBrowser: () => enviornment.browser,
         setBrowser: (browser: Browser) => (enviornment.browser = browser),
