@@ -11,6 +11,8 @@ import { ExecutorRegistry } from "./executor/registry";
 import { Enviornment, ExecutionEnviornment } from "@/types/executor";
 import { Browser, Page } from "puppeteer";
 import { Edge } from "@xyflow/react";
+import { LogCollector } from "@/types/log";
+import { createLogCollector } from "../log";
 
 export async function ExecuteWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
@@ -34,11 +36,13 @@ export async function ExecuteWorkflow(executionId: string) {
     await initializeWorkflowExecution(executionId, execution.workflowId);
     await initializePhaseStatuses(execution);
 
+    const logCollector = createLogCollector();
+
     let creditsConsumed = 0;
     let executionFailed = false;
     for (const phase of execution.phases) {
         // TODO: consume credits
-        const phaseExecution = await executeWorkflowPhase(phase, enviornment, edges);
+        const phaseExecution = await executeWorkflowPhase(phase, enviornment, edges, logCollector);
         if (!phaseExecution.success) {
             executionFailed = true;
             break;
@@ -123,7 +127,7 @@ async function finalizeWorkflowExecution(
 }
 
 
-async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornment, edges: Edge[]) {
+async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornment, edges: Edge[], logCollector: LogCollector) {
     const startedAt = new Date();
     const node = JSON.parse(phase.node) as AppNode;
     setupEnviornmentForPhase(node, enviornment, edges);
@@ -144,7 +148,7 @@ async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornm
     // TODO: decrement user balance ( with required credits )
 
     // Execute phase simulation
-    const success = await executePhase(phase, node, enviornment);
+    const success = await executePhase(phase, node, enviornment, logCollector);
 
     const outputs = enviornment.phases[node.id].outputs;
     await finalizePhase(phase.id, success, outputs );
@@ -172,13 +176,14 @@ async function executePhase(
     phase: ExecutionPhase,
     node: AppNode,
     enviornment: Enviornment,
+    logCollector: LogCollector
 ): Promise<boolean> {
     const runFn = ExecutorRegistry[node.data.type];
     if (!runFn) {
         return false;
     }
 
-    const ExecutionEnviornment: ExecutionEnviornment<any> = createExecutionEnviornment(node, enviornment);
+    const ExecutionEnviornment: ExecutionEnviornment<any> = createExecutionEnviornment(node, enviornment, logCollector);
     return await runFn(ExecutionEnviornment);
 }
 
@@ -211,7 +216,7 @@ function setupEnviornmentForPhase(node: AppNode, enviornment: Enviornment, edges
     }
 }
 
-function createExecutionEnviornment(node: AppNode, enviornment: Enviornment) : ExecutionEnviornment<any> {
+function createExecutionEnviornment(node: AppNode, enviornment: Enviornment, logCollector: LogCollector) : ExecutionEnviornment<any> {
     return {
         getInput: (name:string) => enviornment.phases[node.id]?.inputs[name],
         setOutput: (name: string, value: string) => {
@@ -224,6 +229,8 @@ function createExecutionEnviornment(node: AppNode, enviornment: Enviornment) : E
 
         getPage: () => enviornment.page,    
         setPage: (page:Page) => (enviornment.page = page),
+
+        log: logCollector,
     };
 }
 

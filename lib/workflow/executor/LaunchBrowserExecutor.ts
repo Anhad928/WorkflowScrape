@@ -18,7 +18,7 @@ export async function LaunchBrowserExecutor(
         enviornment.setPage(page);
         return true;
     } catch (error: any) {
-        enviornment.log.error(error);
+        enviornment.log.error(error.message);
         return false;
     }
 }
