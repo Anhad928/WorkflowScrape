@@ -41,9 +41,8 @@ export async function ExecuteWorkflow(executionId: string) {
     let creditsConsumed = 0;
     let executionFailed = false;
     for (const phase of execution.phases) {
-        const logCollector = createLogCollector();
         // TODO: consume credits
-        const phaseExecution = await executeWorkflowPhase(phase, enviornment, edges, logCollector);
+        const phaseExecution = await executeWorkflowPhase(phase, enviornment, edges);
         if (!phaseExecution.success) {
             executionFailed = true;
             break;
@@ -128,7 +127,8 @@ async function finalizeWorkflowExecution(
 }
 
 
-async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornment, edges: Edge[], logCollector: LogCollector) {
+async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornment, edges: Edge[]) {
+    const logCollector = createLogCollector();
     const startedAt = new Date();
     const node = JSON.parse(phase.node) as AppNode;
     setupEnviornmentForPhase(node, enviornment, edges);
