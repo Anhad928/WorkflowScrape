@@ -8,7 +8,10 @@ export function createLogCollector(): LogCollector {
         info: (message:string) => logs.push({ level: "info", "message": message,
             "timestamp": new Date() 
         }),
-        error: (message:string) => logs.push({ level: "info", "message": message,
+        error: (message:string) => logs.push({ level: "error", "message": message,
+            "timestamp": new Date() 
+        }),
+        warning: (message:string) => logs.push({ level: "warning", "message": message,
             "timestamp": new Date() 
         })
     };
