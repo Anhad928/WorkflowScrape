@@ -94,7 +94,11 @@ export default function ExecutionViewer({
         </div>
       </aside>
       <div className='flex w-full h-full'>
-            <pre>{JSON.stringify(phaseDetails.data, null, 4)}</pre>
+            {isRunning && (
+                <div className='flex items-center flex-col gap-2 justify-center h-full w-full'>
+                    <p className='font-bold'>Run is in progress, please wait</p>
+                </div>
+            )}
       </div>
     </div>
   );
