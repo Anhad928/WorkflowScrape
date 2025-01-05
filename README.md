@@ -21,20 +21,14 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 
 ## ⚙️ Tech Stack
 
-1. **Next.js**  
-   - **Why?**: Provides a hybrid static & server-rendered environment, file-based routing, and built-in optimizations for performance. Great for quickly building and deploying full-stack applications.
-
-2. **React & TypeScript**  
-   - **Why?**: React’s component-based approach is perfect for modular UI development, and TypeScript adds static type checking for fewer runtime bugs and improved developer experience.
-
-3. **React Flow**  
-   - **Why?**: Perfect for creating drag-and-drop workflows with customizable nodes and edges. A great UI library for building a visual workflow editor.
-
-4. **Prisma**  
-   - **Why?**: A type-safe ORM that boosts developer productivity, offering easy data modeling and migration. Integrates seamlessly with TypeScript.
-
-5. **React Query**  
-   - **Why?**: Simplifies data fetching, caching, and state management. Reduces boilerplate and provides powerful features like refetching and intelligent cache management.
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![React Flow](https://img.shields.io/badge/React_Flow-0078D7?style=for-the-badge&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=Prisma&logoColor=white)
+![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
+![Puppeteer](https://img.shields.io/badge/Puppeteer-0078D7?style=for-the-badge&logoColor=white)
+![Cheerio js](https://img.shields.io/badge/Cheeriojs-F27102?style=for-the-badge)
 
 ---
 
