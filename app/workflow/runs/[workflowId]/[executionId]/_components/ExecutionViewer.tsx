@@ -99,6 +99,19 @@ export default function ExecutionViewer({
                     <p className='font-bold'>Run is in progress, please wait</p>
                 </div>
             )}
+            {!isRunning && !selectedPhase && (
+                <div className='flex items-center flex-col gap-2 justify-center h-full w-full'>
+                    <div className="flex flex-col gap-1 text-center">
+                        <p className='font-bold'>No phase selected</p>
+                        <p className="text-sm text-muted-foreground">Select a phase to view details</p>
+                    </div>
+                </div>
+            )}
+            {!isRunning && selectedPhase && phaseDetails.data && (
+                <div className="flex flex-col py-4 container gap-4 overflow-auto">
+                    <div className=""></div>
+                </div>
+            )}
       </div>
     </div>
   );
