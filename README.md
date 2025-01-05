@@ -140,6 +140,14 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 - Further refine the execution process, including timeouts or retries.
 - Introduce advanced debugging or logging.
 
+### Log collector 
+- Create a system to collect logs from each task execution.
+- Provide a more detailed debugging UI.
+
+### Workflow execution viewer part 2 
+- Expand on the viewer with filtering, sorting, or searching of logs.
+- Improve user feedback and error messages.
+
 ---
 
 ## Set up environment variables 
