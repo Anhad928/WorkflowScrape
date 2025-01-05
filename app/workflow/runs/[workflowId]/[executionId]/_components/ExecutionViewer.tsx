@@ -13,6 +13,13 @@ import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 import { CalendarIcon, CircleDashedIcon, ClockIcon, CoinsIcon, Loader2Icon, LucideIcon, WorkflowIcon } from 'lucide-react';
 import React, { ReactNode, useState } from 'react'
+import {
+    Card, 
+    CardContent,
+    CardDescription,
+    CardTitle,
+    CardHeader,
+} from '@/components/ui/card';
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>
 
@@ -109,7 +116,27 @@ export default function ExecutionViewer({
             )}
             {!isRunning && selectedPhase && phaseDetails.data && (
                 <div className="flex flex-col py-4 container gap-4 overflow-auto">
-                    <div className=""></div>
+                    <div className="flex gap-2 items-center">
+                        <Badge variant={"outline"} className='space-x-4'>
+                            <div className='flex gap-1 items-center'>
+                                <CoinsIcon size={18} className='stroke-muted-foreground'/>
+                                <span>Credits</span>
+                            </div>
+                            <span>TODO</span>
+                        </Badge>
+                        <Badge variant={"outline"} className='space-x-4'>
+                            <div className='flex gap-1 items-center'>
+                                <ClockIcon size={18} className='stroke-muted-foreground'/>
+                                <span>Duration</span>
+                            </div>
+                            <span>{DatesToDurationString(
+                                phaseDetails.data.completedAt,
+                                phaseDetails.data.startedAt
+                            ) || "-"}</span>
+                        </Badge>
+                    </div>
+
+                    <ParamterViewer title="Inputs" subtitle = "Inputs used for this phase" paramsJSON = {phaseDetails.data.inputs} />
                 </div>
             )}
       </div>
@@ -131,4 +158,20 @@ function ExecutionLabel({icon, label, value}: {icon: LucideIcon, label: ReactNod
                 </div>
             </div>
     );
+}
+
+
+function ParamterViewer({
+    title, 
+    subtitle, 
+    paramsJSON,
+}:{
+    title: string;
+    subtitle: string;
+    paramsJSON: string | null;
+}) {
+    const params = paramsJSON ? JSON.parse(paramsJSON) : undefined;
+    return (
+        <div>Param</div>
+    )
 }
