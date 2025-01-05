@@ -13,6 +13,7 @@ export async function ExtractTextFromElementExecutor(
         }
         const html = enviornment.getInput("HTML");
         if (!html) {
+            console.error("Html not defined");
             return false;
         }
 

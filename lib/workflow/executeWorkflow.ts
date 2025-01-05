@@ -10,6 +10,7 @@ import { TaskParamType, TaskType } from "@/types/task";
 import { ExecutorRegistry } from "./executor/registry";
 import { Enviornment, ExecutionEnviornment } from "@/types/executor";
 import { Browser, Page } from "puppeteer";
+import { Edge } from "@xyflow/react";
 
 export async function ExecuteWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
@@ -26,6 +27,8 @@ export async function ExecuteWorkflow(executionId: string) {
         throw new Error("Execution not found");
     }
 
+    const edges = JSON.parse(execution.defination).edges as Edge[];
+    
     const enviornment: Enviornment = { phases: {} };
 
     await initializeWorkflowExecution(executionId, execution.workflowId);
@@ -35,7 +38,7 @@ export async function ExecuteWorkflow(executionId: string) {
     let executionFailed = false;
     for (const phase of execution.phases) {
         // TODO: consume credits
-        const phaseExecution = await executeWorkflowPhase(phase, enviornment);
+        const phaseExecution = await executeWorkflowPhase(phase, enviornment, edges);
         if (!phaseExecution.success) {
             executionFailed = true;
             break;
@@ -120,10 +123,10 @@ async function finalizeWorkflowExecution(
 }
 
 
-async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornment) {
+async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornment, edges: Edge[]) {
     const startedAt = new Date();
     const node = JSON.parse(phase.node) as AppNode;
-    setupEnviornmentForPhase(node, enviornment);
+    setupEnviornmentForPhase(node, enviornment, edges);
     // Update phase status
     await prisma.executionPhase.update({
         where: { id: phase.id },
@@ -160,7 +163,7 @@ async function finalizePhase(phaseId: string, success: boolean, outputs: any) {
             status: finalStatus,
             completedAt: new Date(),
             outputs: JSON.stringify(outputs),   
-            
+
         }
     });
 }
@@ -179,7 +182,7 @@ async function executePhase(
     return await runFn(ExecutionEnviornment);
 }
 
-function setupEnviornmentForPhase(node: AppNode, enviornment: Enviornment) {
+function setupEnviornmentForPhase(node: AppNode, enviornment: Enviornment, edges: Edge[]) {
     enviornment.phases[node.id] = {inputs: {}, outputs: {}};
     const inputs = TaskRegistry[node.data.type].inputs;
     for (const input of inputs) {
@@ -191,6 +194,20 @@ function setupEnviornmentForPhase(node: AppNode, enviornment: Enviornment) {
         }
 
         // Get input value from outputs in the enviornment
+        const connectedEdge = edges.find(
+            edge => edge.target === node.id && edge.targetHandle === input.name
+        );
+
+        if (!connectedEdge) {
+            console.error("Missing edge for input", input.name, "node id:", node.id);
+            continue;
+        }
+
+        const outputValue = enviornment.phases[connectedEdge.source].outputs[
+            connectedEdge.sourceHandle!
+        ]
+
+        enviornment.phases[node.id].inputs[input.name] = outputValue;
     }
 }
 
