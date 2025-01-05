@@ -21,8 +21,7 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 
 ## ⚙️ Tech Stack
 
-1. **Next.js**  
-   - **Why?**: Provides a hybrid static & server-rendered environment, file-based routing, and built-in optimizations for performance. Great for quickly building and deploying full-stack applications.
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 
 2. **React & TypeScript**  
    - **Why?**: React’s component-based approach is perfect for modular UI development, and TypeScript adds static type checking for fewer runtime bugs and improved developer experience.
