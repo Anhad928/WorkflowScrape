@@ -36,11 +36,12 @@ export async function ExecuteWorkflow(executionId: string) {
     await initializeWorkflowExecution(executionId, execution.workflowId);
     await initializePhaseStatuses(execution);
 
-    const logCollector = createLogCollector();
+    
 
     let creditsConsumed = 0;
     let executionFailed = false;
     for (const phase of execution.phases) {
+        const logCollector = createLogCollector();
         // TODO: consume credits
         const phaseExecution = await executeWorkflowPhase(phase, enviornment, edges, logCollector);
         if (!phaseExecution.success) {
@@ -151,12 +152,12 @@ async function executeWorkflowPhase(phase: ExecutionPhase, enviornment: Enviornm
     const success = await executePhase(phase, node, enviornment, logCollector);
 
     const outputs = enviornment.phases[node.id].outputs;
-    await finalizePhase(phase.id, success, outputs );
+    await finalizePhase(phase.id, success, outputs, logCollector );
     return { success };
 }
 
 
-async function finalizePhase(phaseId: string, success: boolean, outputs: any) {
+async function finalizePhase(phaseId: string, success: boolean, outputs: any, logCollector: LogCollector) {
     const finalStatus = success ? ExecutionPhaseStatus.COMPLETED : ExecutionPhaseStatus.FAILED;
 
     await prisma.executionPhase.update({
@@ -166,7 +167,16 @@ async function finalizePhase(phaseId: string, success: boolean, outputs: any) {
         data: {
             status: finalStatus,
             completedAt: new Date(),
-            outputs: JSON.stringify(outputs),   
+            outputs: JSON.stringify(outputs), 
+            logs:{
+                createMany: {
+                    data: logCollector.getAll().map(log => ({
+                        message: log.message,
+                        timestamp: log.timestamp,
+                        logLevel: log.level,    
+                    })),
+                }
+            }  
 
         }
     });
