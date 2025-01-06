@@ -9,6 +9,12 @@ export default function Executionpage({params}:{params: {workflowId: string}}) {
         subtitle="List of all your workflow runs">
 
         </Topbar>
+        <ExecutionsTable workflowId={params.workflowId}/>
     </div>
 )
+}
+
+
+async function ExecutionsTable({workflowId}: {workflowId: string}) {
+    const executions = await GetWorkflowExecutions(workflowId);
 }
