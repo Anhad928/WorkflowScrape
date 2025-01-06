@@ -30,6 +30,8 @@ import {
     TableRow,
     TableHead,
 } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
+import { LogLevel } from '@/types/log';
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>
 
@@ -240,6 +242,20 @@ function LogViewer({logs}: {logs: ExecutionLog[] | undefined}) {
                             <TableHead>Message</TableHead>
                         </TableRow>
                     </TableHeader>
+                    <TableBody>
+                        {logs.map(log => (
+                            <TableRow key={log.id} className='text-muted-foreground'>
+                                <TableCell width={190} className='text-xs text-muted-foreground p-[2px] pl-4' >{log.timestamp.toISOString()}</TableCell>
+                                <TableCell width={80} className={cn("uppercase text-xs font-bold p-[3px] pl-4",
+                                    log.logLevel as LogLevel === "error" && "text-destructive",
+                                    log.logLevel as LogLevel === "info" && "text-primary",
+                                )}
+                                >
+                                    {log.logLevel}</TableCell>
+                                <TableCell className='text-sm flex-1 p-[3px] pl-4'>{log.message}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
                 </Table>
             </CardContent>
         </Card>
