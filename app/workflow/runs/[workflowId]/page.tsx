@@ -51,5 +51,5 @@ async function ExecutionsTableWrapper({workflowId}: {workflowId: string}) {
         </div>)
     }
 
-    return <ExecutionsTable workflowId={workflowId} />;
+    return <ExecutionsTable workflowId={workflowId} initialData = {executions} />;
 }
