@@ -5,9 +5,11 @@ import CountUp from 'react-countup';
 
 export default function ReactCountUpWrapper({ value }: { value: number }) {
     const [mounted, setMounted] = useState(false);
+    
     useEffect(() => {
         setMounted(true);
     }, []);
+
     if (!mounted) {
         return "-";
     }
