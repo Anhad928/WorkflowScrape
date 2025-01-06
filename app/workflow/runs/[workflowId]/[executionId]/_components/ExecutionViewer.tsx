@@ -12,7 +12,7 @@ import { ExecutionPhaseStatus, WorkflowExecutionStatus } from '@/types/workflow'
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 import { CalendarIcon, CircleDashedIcon, ClockIcon, CoinsIcon, Loader2Icon, LucideIcon, WorkflowIcon } from 'lucide-react';
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import {
     Card, 
     CardContent,
@@ -56,7 +56,24 @@ export default function ExecutionViewer({
         queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
     });
 
+    
+
     const isRunning = query.data?.status === WorkflowExecutionStatus.RUNNING;
+    useEffect(() => {
+        // While running we auto-elect the current running phae in the sidebar
+        const phases = query.data?.phases || [];
+        if (isRunning) {
+            // Seelct the last executed phase
+            const phaseToSelect = phases.toSorted((a,b) => a.startedAt! > b.startedAt! ? -1 : 1)[0];
+
+            setSelectedPhase(phaseToSelect.id);
+            return;
+        }
+
+        const phaseToSelect = phases.toSorted((a,b) => a.completedAt! > b.completedAt! ? -1 : 1)[0];
+        setSelectedPhase(phaseToSelect.id);
+    }, [query.data?.phases, isRunning, setSelectedPhase]);
+
     const duration = DatesToDurationString(query.data?.completedAt, query.data?.startedAt);
     const creditsConsumed = GetPhasesTotalCost(query.data?.phases || []);
   return (
