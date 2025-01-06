@@ -7,8 +7,6 @@ export default function PhaseStatusBadge({
     status: ExecutionPhaseStatus
 }) {
   return (
-    <div>
-      PhaseStatusBadge
-    </div>
+    status
   )
 }

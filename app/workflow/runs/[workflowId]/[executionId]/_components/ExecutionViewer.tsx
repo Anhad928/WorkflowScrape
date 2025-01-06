@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { DatesToDurationString } from '@/lib/helper/dates';
 import { GetPhasesTotalCost } from '@/lib/helper/phases';
-import { WorkflowExecutionStatus } from '@/types/workflow';
+import { ExecutionPhaseStatus, WorkflowExecutionStatus } from '@/types/workflow';
 
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
@@ -32,6 +32,7 @@ import {
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import { LogLevel } from '@/types/log';
+import PhaseStatusBadge from './PhaseStatusBadge';
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>
 
@@ -105,9 +106,7 @@ export default function ExecutionViewer({
                         <Badge variant={"outline"}>{index + 1}</Badge>
                         <p className='font-semibold'>{phase.name}</p>
                     </div>
-                    <p className='text-xs text-muted-foreground'>
-                        {phase.status}
-                    </p>
+                    <PhaseStatusBadge status = {phase.status as ExecutionPhaseStatus} />
                 </Button>
             ))}
         </div>
