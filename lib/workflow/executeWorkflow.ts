@@ -193,8 +193,9 @@ async function executePhase(
         return false;
     }
 
-    const ExecutionEnviornment: ExecutionEnviornment<any> = createExecutionEnviornment(node, enviornment, logCollector);
-    return await runFn(ExecutionEnviornment);
+    await waitFor(3000); // for testing
+    const executionEnviornment: ExecutionEnviornment<any> = createExecutionEnviornment(node, enviornment, logCollector);
+    return await runFn(executionEnviornment);
 }
 
 function setupEnviornmentForPhase(node: AppNode, enviornment: Enviornment, edges: Edge[]) {

@@ -22,6 +22,8 @@ export default function PhaseStatusBadge({
         return (
         <CircleCheckIcon size={20} className='stroke-green-500' />
     );
+    default:
+        return <div className="rounded-full">{status}</div>;
 
   }
 }
