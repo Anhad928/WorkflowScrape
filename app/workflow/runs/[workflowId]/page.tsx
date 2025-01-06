@@ -1,3 +1,4 @@
+import { GetWorkflowExecutions } from "@/actions/workflows/getWorkflowExecutions";
 import Topbar from "../../_components/topbar/Topbar";
 
 export default function Executionpage({params}:{params: {workflowId: string}}) {
@@ -17,4 +18,9 @@ export default function Executionpage({params}:{params: {workflowId: string}}) {
 
 async function ExecutionsTable({workflowId}: {workflowId: string}) {
     const executions = await GetWorkflowExecutions(workflowId);
+    if (!executions) {
+        return <div>No executions found</div>
+    }
+
+    return <pre>{JSON.stringify(executions, null, 4)}</pre>
 }

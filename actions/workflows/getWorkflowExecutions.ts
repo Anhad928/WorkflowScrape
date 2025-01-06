@@ -13,6 +13,8 @@ export async function GetWorkflowExecutions(workflowId: string) {
         where: {
             workflowId,
             userId,
-        },
+        },orderBy: {
+            createdAt: 'desc'
+        }
     });
 }
