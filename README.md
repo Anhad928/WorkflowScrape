@@ -29,6 +29,8 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 ![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
 ![Puppeteer](https://img.shields.io/badge/Puppeteer-0078D7?style=for-the-badge&logoColor=white)
 ![Cheerio js](https://img.shields.io/badge/Cheeriojs-F27102?style=for-the-badge)
+![Clerk](https://img.shields.io/badge/Clerk-3c11a2?style=for-the-badge)
+
 
 ---
 
