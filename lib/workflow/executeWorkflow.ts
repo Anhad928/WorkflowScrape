@@ -254,3 +254,21 @@ async function cleanupEnviornment(enviornment: Enviornment) {
         await enviornment.browser.close().catch(err => console.log("cannot close browser, reason:", err));
     }
 }
+
+
+
+async function decrementCredits(
+    userId: string,
+    amount: number,
+){
+    try{
+        await prisma.userBalance.update({
+            where: {userId, credits: {gte: amount}},
+            data: { credits: { decrement: amount }},
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
