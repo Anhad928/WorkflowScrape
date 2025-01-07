@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import ExecutionStatusIndicator from './ExecutionStatusIndicator';
 import { WorkflowExecutionStatus } from '@/types/workflow';
+import { CoinsIcon } from 'lucide-react';
 
 type InitialDataType = Awaited<ReturnType<typeof GetWorkflowExecutions>>;
 
@@ -56,9 +57,21 @@ export default function ExecutionsTable({
                                 </div>
                             </TableCell>
                             <TableCell>
-                                <div>
-                                    <div><ExecutionStatusIndicator status={execution.status as WorkflowExecutionStatus}/></div>
-                                    <div>{duration}</div>
+                                <div className='flex flex-col'>
+                                    <div className='flex gap-2 items-center'>
+                                        <ExecutionStatusIndicator status={execution.status as WorkflowExecutionStatus}/>
+                                    <span className="font-semibold capitalize"> {execution.status}</span>
+                                    </div>
+                                    <div className='text-muted-foreground text-xs mx-5'>{duration}</div>
+                                </div>
+                            </TableCell>
+                            <TableCell>
+                                <div className='flex flex-col'>
+                                    <div className='flex gap-2 items-center'>
+                                        <CoinsIcon size={16} className='text-primary'/>
+                                    <span className="font-semibold capitalize"> {execution.creditsConsumed}</span>
+                                    </div>
+                                    <div className='text-muted-foreground text-xs mx-5'>Credits</div>
                                 </div>
                             </TableCell>
                         </TableRow>
