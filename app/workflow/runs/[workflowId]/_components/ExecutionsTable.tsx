@@ -6,6 +6,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { DatesToDurationString } from '@/lib/helper/dates';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
+import ExecutionStatusIndicator from './ExecutionStatusIndicator';
+import { WorkflowExecutionStatus } from '@/types/workflow';
 
 type InitialDataType = Awaited<ReturnType<typeof GetWorkflowExecutions>>;
 
@@ -55,7 +57,7 @@ export default function ExecutionsTable({
                             </TableCell>
                             <TableCell>
                                 <div>
-                                    <div><ExecutionStatusIndicator /></div>
+                                    <div><ExecutionStatusIndicator status={execution.status as WorkflowExecutionStatus}/></div>
                                     <div>{duration}</div>
                                 </div>
                             </TableCell>
