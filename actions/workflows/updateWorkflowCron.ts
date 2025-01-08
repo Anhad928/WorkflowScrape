@@ -23,8 +23,8 @@ export async function UpdateWorkflowCron({
         data: {
             cron,
             nextRunAt: interval.next().toDate(),
-        }
-    })
+        },
+    });
 
     } catch (error: any) {
         console.log("invalid cron:", error.message)
