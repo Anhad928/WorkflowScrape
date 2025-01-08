@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
-import { ExecutionPhaseStatus, WorkflowExecutionPlan, WorkflowExecutionPlanPhase, WorkflowExecutionStatus, WorkflowExecutionTrigger } from "@/types/workflow";
+import { ExecutionPhaseStatus, WorkflowExecutionPlan, WorkflowExecutionPlanPhase, WorkflowExecutionStatus, WorkflowExecutionTrigger, WorkflowStatus } from "@/types/workflow";
 import { FlowToExecutionPlan } from "@/lib/workflow/executionPlan";
 import { start } from "repl";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
@@ -35,21 +35,30 @@ export async function RunWorkflow(form: {
     }
     
     let executionPlan: WorkflowExecutionPlan;
-    if (!flowDefination){
-        throw new Error("flow defination is not defined");
+    if (workflow.status === WorkflowStatus.PUBLISHED) {
+        if (!workflow.executionPlan) {
+            throw new Error("no execution plan found in published workflow")
+        }
+        executionPlan = JSON.parse(workflow.executionPlan);
+    }else {
+        // workflow is a draft
+        if (!flowDefination) {
+            throw new Error("flow defination is required");
+        }
+        const flow = JSON.parse(flowDefination);
+        const result = FlowToExecutionPlan(flow.nodes, flow.edges);
+        if (result.error) {
+            throw new Error("flow defination not valid");
+        }
+
+        if (!result.executionPlan) {
+            throw new Error("no execution plan generated");
+        }
+
+        executionPlan = result.executionPlan;
     }
 
-    const flow = JSON.parse(flowDefination);
-    const result = FlowToExecutionPlan(flow.nodes, flow.edges);
-    if (result.error) {
-        throw new Error("flow defination not valid");
-    }
-
-    if (!result.executionPlan) {
-        throw new Error("no execution plan generated");
-    }
-
-    executionPlan = result.executionPlan;
+    
     
     const execution = await prisma.workflowExecution.create({
     data: {
