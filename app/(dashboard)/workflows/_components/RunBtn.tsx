@@ -19,7 +19,19 @@ export default function RunBtn({workflowId}: {workflowId: string}) {
 
     })
   return (
-    <Button>
+    <Button 
+        variant={"outline"} 
+        size={"sm"} 
+        className='flex items-center gap-2' 
+        disabled={mutation.isPending}
+        onClick={() => {
+            toast.loading("Scheduling run...", { id: workflowId });
+            mutation.mutate({
+                workflowId,
+
+            });3
+        }}
+    >
         <PlayIcon size={16}/>
         Run
     </Button>
