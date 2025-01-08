@@ -20,7 +20,7 @@ export default function PublishBtn({workflowId}: {workflowId: string}) {
       toast.success("Workflow published", {id: workflowId});
     },
     onError: () => {
-      toast.error("Something went wrong", { id: "flow-execution" });
+      toast.error("Something went wrong", { id: workflowId });
     },
   })
   return (
@@ -32,9 +32,9 @@ export default function PublishBtn({workflowId}: {workflowId: string}) {
       }
 
 
-
+      toast.loading("Publishing workflow...", { id: workflowId })
       mutation.mutate({
-        workflowId: workflowId,
+        id: workflowId,
         flowDefination: JSON.stringify(toObject()),
       })
       

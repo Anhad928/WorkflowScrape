@@ -42,7 +42,7 @@ export default function Topbar({title, subtitle, workflowId, hideButtons=false}:
             <>
             <ExecuteBtn workflowId={workflowId} />
             <SaveBtn workflowId={workflowId}/>
-            <PublishBtn />
+            <PublishBtn workflowId={workflowId}/>
             </>
         )}   
         </div>
