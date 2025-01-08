@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -19,7 +19,9 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { UpdateWorkflowCron } from '@/actions/workflows/updateWorkflowCron';
 
-export default function SchedulerDialog() {
+export default function SchedulerDialog({workflowId}: {workflowId: string}) {
+
+    const [cron, setCron] = useState("");
 
     const mutation = useMutation({
         mutationFn: UpdateWorkflowCron,
@@ -48,7 +50,7 @@ export default function SchedulerDialog() {
                     Specify a cron expression to Schedule periodic workflow execution.
                     All time are in UTC
                 </p>
-                <Input placeholder='E.g. * * * * *' />
+                <Input placeholder='E.g. * * * * *' value = {cron} onChange={(e) => setCron(e.target.value)}/>
             </div>
             <DialogFooter className='px-6 gap-2'>
                 <DialogClose asChild>
@@ -57,7 +59,12 @@ export default function SchedulerDialog() {
                     </Button>
                 </DialogClose>
                 <DialogClose asChild>
-                    <Button className='w-full'>Save</Button>
+                    <Button className='w-full' disabled={mutation.isPending} onClick={() => {
+                        mutation.mutate({
+                            id: workflowId,
+                            cron
+                        })
+                    }}>Save</Button>
                 </DialogClose>
             </DialogFooter>
         </DialogContent>
