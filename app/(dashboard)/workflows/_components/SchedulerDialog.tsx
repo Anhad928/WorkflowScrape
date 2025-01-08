@@ -20,9 +20,9 @@ import { toast } from 'sonner';
 import { UpdateWorkflowCron } from '@/actions/workflows/updateWorkflowCron';
 import cronstrue from "cronstrue";
 
-export default function SchedulerDialog({workflowId}: {workflowId: string}) {
+export default function SchedulerDialog(props: {workflowId: string, cron:string | null}) {
 
-    const [cron, setCron] = useState("");
+    const [cron, setCron] = useState(props.cron || "");
     const [validCron, setValidCron] = useState(false);
     const [readableCron, setReadableCron] = useState("");
     const mutation = useMutation({
@@ -63,8 +63,8 @@ export default function SchedulerDialog({workflowId}: {workflowId: string}) {
                     All time are in UTC
                 </p>
                 <Input placeholder='E.g. * * * * *' value = {cron} onChange={(e) => setCron(e.target.value)}/>
-                <div className={cn("bg-accent rounded-md p-4 border text-sm",
-                    validCron ? "border-primary text-primary" : "border-destructive text-destructive"
+                <div className={cn("bg-accent rounded-md p-4 border text-sm border-destructive text-destructive",
+                    validCron && "border-primary text-primary"
                 )}>
                     {validCron ? readableCron : "Not a valid cron expression"}
                 </div>
@@ -79,7 +79,7 @@ export default function SchedulerDialog({workflowId}: {workflowId: string}) {
                     <Button className='w-full' disabled={mutation.isPending} onClick={() => {
                         toast.loading("Saving...", { id: "cron" })
                         mutation.mutate({
-                            id: workflowId,
+                            id: props.workflowId,
                             cron
                         })
                     }}>Save</Button>

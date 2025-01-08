@@ -55,7 +55,7 @@ function WorkflowCard({ workflow}: { workflow: Workflow}) {
                 )
                 }
                </h3>
-               <ScheduleSection isDraft={isDraft} creditsCost={workflow.creditsCost} workflowId={workflow.id}/>
+               <ScheduleSection isDraft={isDraft} creditsCost={workflow.creditsCost} workflowId={workflow.id} cron= {workflow.cron}/>
             </div>
         </div>
         <div className='flex items-center space-x-2'>
@@ -113,13 +113,13 @@ function WorkflowActions({workflowName, workflowId}: {workflowName: string, work
 }
 }
 
-function ScheduleSection({isDraft, creditsCost, workflowId} : { isDraft: boolean, creditsCost: number, workflowId: string}) {
+function ScheduleSection({isDraft, creditsCost, workflowId, cron} : { isDraft: boolean, creditsCost: number, workflowId: string, cron: string | null}) {
     if (isDraft) return null;
 
     return (
         <div className='flex items-center gap-2'>
             <CornerDownRightIcon className='h-4 w-4 text-muted-foreground'/>
-            <SchedulerDialog workflowId={workflowId}/>
+            <SchedulerDialog workflowId={workflowId} cron={cron}/>
             <MoveRightIcon className='h-4 w-4 text-muted-foreground'/>
             <TooltipWrapper content="Credit consumption for full run">
                 <div className="flex items-center gap-3">
