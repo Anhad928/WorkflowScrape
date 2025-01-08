@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -18,11 +18,13 @@ import { Input } from '@/components/ui/input';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { UpdateWorkflowCron } from '@/actions/workflows/updateWorkflowCron';
+import cronstrue from "cronstrue";
 
 export default function SchedulerDialog({workflowId}: {workflowId: string}) {
 
     const [cron, setCron] = useState("");
-
+    const [validCron, setValidCron] = useState(false);
+    const [readableCron, setReadableCron] = useState("");
     const mutation = useMutation({
         mutationFn: UpdateWorkflowCron,
         onSuccess: () => {
@@ -31,7 +33,17 @@ export default function SchedulerDialog({workflowId}: {workflowId: string}) {
         onError: () => {
             toast.error("Something went wrong", { id: "cron" })
         }
-    })
+    });
+
+    useEffect(() => {
+        try {
+            const humanCronStr = cronstrue.toString(cron);
+            setValidCron(true);
+            setReadableCron(humanCronStr);
+        } catch (error) {
+            setValidCron(false)
+        }
+    }, [cron])
   return (
     <Dialog>
         <DialogTrigger asChild>
@@ -51,6 +63,11 @@ export default function SchedulerDialog({workflowId}: {workflowId: string}) {
                     All time are in UTC
                 </p>
                 <Input placeholder='E.g. * * * * *' value = {cron} onChange={(e) => setCron(e.target.value)}/>
+                <div className={cn("bg-accent rounded-md p-4 border text-sm",
+                    validCron ? "border-primary text-primary" : "border-destructive text-destructive"
+                )}>
+                    {validCron ? readableCron : "Not a valid cron expression"}
+                </div>
             </div>
             <DialogFooter className='px-6 gap-2'>
                 <DialogClose asChild>
@@ -60,6 +77,7 @@ export default function SchedulerDialog({workflowId}: {workflowId: string}) {
                 </DialogClose>
                 <DialogClose asChild>
                     <Button className='w-full' disabled={mutation.isPending} onClick={() => {
+                        toast.loading("Saving...", { id: "cron" })
                         mutation.mutate({
                             id: workflowId,
                             cron
