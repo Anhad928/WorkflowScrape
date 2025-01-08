@@ -83,8 +83,15 @@ export default function ExecutionViewer({
       border-separate flex flex-grow flex-col overflow-hidden'>
         <div className='py-4 px-2'>
             {/* Status label */}
-            <ExecutionLabel icon={CircleDashedIcon} label="Status" value={query.data?.status} />
-            <ExecutionLabel icon={CalendarIcon} label="Started at" 
+            <ExecutionLabel icon={CircleDashedIcon} 
+            label="Status" 
+            value={<div>
+                <PhaseStatusBadge status={query.data?.status as ExecutionPhaseStatus}/>
+            </div>} 
+            />
+
+            <ExecutionLabel icon={CalendarIcon}
+            label="Started at" 
             value={
                 <span className='lowercase'>
                 {query.data?.startedAt ? formatDistanceToNow(new Date(query.data?.startedAt), {
@@ -99,6 +106,7 @@ export default function ExecutionViewer({
                 label = "Duration"
                 value = {duration ? duration : <Loader2Icon className='animate-spin' size={20}/>}
             />
+
             <ExecutionLabel 
                 icon = {CoinsIcon}
                 label = "Credits consumed"
