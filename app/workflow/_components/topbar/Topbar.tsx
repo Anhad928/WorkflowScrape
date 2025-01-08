@@ -15,10 +15,11 @@ interface Props {
     subtitle?: string;
     workflowId: string;
     hideButtons?: boolean;
+    isPublished?: boolean;
 }
 
 
-export default function Topbar({title, subtitle, workflowId, hideButtons=false}: Props) {
+export default function Topbar({title, subtitle, workflowId, hideButtons=false, isPublished = false,}: Props) {
     const router = useRouter();
   return (
     <header className='flex p-2 border-p-2 border-seprate justify-between w-full h-[60px] sticky top-0
@@ -41,8 +42,12 @@ export default function Topbar({title, subtitle, workflowId, hideButtons=false}:
             {hideButtons === false && (
             <>
             <ExecuteBtn workflowId={workflowId} />
-            <SaveBtn workflowId={workflowId}/>
-            <PublishBtn workflowId={workflowId}/>
+            {!isPublished && ( 
+                <>
+                <SaveBtn workflowId={workflowId}/>
+                <PublishBtn workflowId={workflowId}/>
+            </>
+           )}
             </>
         )}   
         </div>
