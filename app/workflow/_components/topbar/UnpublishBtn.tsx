@@ -1,20 +1,13 @@
 "use client";
 
-import { PublishWorkflow } from '@/actions/workflows/publishWorkflow';
-import { RunWorkflow } from '@/actions/workflows/runWorkflow';
 import { UnpublishWorkflow } from '@/actions/workflows/unpublishWorkflow';
-import useExecutionPlan from '@/components/hooks/useExecutionPlan';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
-import { useReactFlow } from '@xyflow/react';
-import { DownloadIcon, PlayIcon, UploadIcon } from 'lucide-react';
+import { DownloadIcon } from 'lucide-react';
 import React from 'react'
 import { toast } from 'sonner';
 
 export default function UnpublishBtn({workflowId}: {workflowId: string}) {
-  const generate = useExecutionPlan();
-  const {toObject} = useReactFlow();
-
   const mutation = useMutation({
     mutationFn: UnpublishWorkflow,
     onSuccess: () => {
@@ -30,8 +23,8 @@ export default function UnpublishBtn({workflowId}: {workflowId: string}) {
       mutation.mutate(workflowId);
       
     }}>
-        <DownloadIcon size={16} className='stroke-green-400'/>
-        Publish
+        <DownloadIcon size={16} className='stroke-orange-500'/>
+        Unpublish
     </Button>
   )
 }
