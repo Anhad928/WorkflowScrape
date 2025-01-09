@@ -140,7 +140,8 @@ function LastRunDetails({workflow}: {workflow: Workflow}) {
     const {lastRunAt, lastRunStatus, lastRunId, nextRunAt} = workflow;
     const formattedStartedAt = lastRunAt && formatDistanceToNow(lastRunAt, {addSuffix: true})
 
-    const nextSchedule = nextRunAt && format(nextRunAt, 'yyyy-MM-dd HH:mm:ss')
+    const nextSchedule = nextRunAt && format(nextRunAt, 'yyyy-MM-dd HH:mm:ss');
+    const nextScheduleUTC = nextRunAt &&
     return (
         <div className='bg-primary/5 px-4 py-1 flex justify-between items-center text-muted-foreground'>
             <div className='flex items-center text-sm gap-2'>
