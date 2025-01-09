@@ -16,8 +16,10 @@ export async function UpdateWorkflowCron({
     if (!userId) {
         throw new Error("User not authenticated");
     }
+    
 
     try{
+        revalidatePath("/workflows");
         const interval = parser.parseExpression(cron, { utc: true})
         return await prisma.workflow.update({
         where: { id, userId },
@@ -26,11 +28,12 @@ export async function UpdateWorkflowCron({
             nextRunAt: interval.next().toDate(),
         },
     });
-
+    
+    
     } catch (error: any) {
-        console.log("invalid cron:", error.message)
-        throw new Error("Invalid cron expression")
-    }
+        console.log("invalid cron:", error.message);
+        throw new Error("Invalid cron expression");
+    };
 
-    revalidatePath("/workflows")
+    
 }
