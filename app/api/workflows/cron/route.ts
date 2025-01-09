@@ -30,6 +30,6 @@ function triggerWorkflow(workflowId: string) {
             Authorization: `Bearer ${process.env.API_SECRET!}`,
         },
         cache: "no-store",
-        signal: AbortSignal.timeout(5000),
+        
     }).catch(error => console.error("Error triggering workflow with id", workflowId, ":error->", error.message))
 }

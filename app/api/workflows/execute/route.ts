@@ -1,6 +1,9 @@
 import prisma from "@/lib/prisma";
-import { WorkflowExecutionPlan, WorkflowExecutionStatus, WorkflowExecutionTrigger } from "@/types/workflow";
+import { ExecuteWorkflow } from "@/lib/workflow/executeWorkflow";
+import { TaskRegistry } from "@/lib/workflow/task/registry";
+import { ExecutionPhaseStatus, WorkflowExecutionPlan, WorkflowExecutionStatus, WorkflowExecutionTrigger } from "@/types/workflow";
 import { timingSafeEqual } from "crypto";
+import { number } from "zod";
 
 function isValidSecret(secret: string) {
     const API_SECRET = process.env.API_SECRET;
@@ -54,6 +57,22 @@ export async function GET(request: Request) {
             status: WorkflowExecutionStatus.PENDING,
             startedAt: new Date(),
             trigger: WorkflowExecutionTrigger.CRON,
-        }
-    })
+            phases: {
+                create: executionPlan.flatMap((phase) => {
+                    return phase.nodes.flatMap((node) => {
+                        return {
+                            userId : workflow.userId,
+                            status: ExecutionPhaseStatus.CREATED,
+                            number: phase.phase,
+                            node: JSON.stringify(node),
+                            name: TaskRegistry[node.data.type].label,
+                        };
+                    });
+                }),
+            },
+        },
+    });
+
+    await ExecuteWorkflow(execution.id);
+    return new Response(null, { status: 200 });
 }
