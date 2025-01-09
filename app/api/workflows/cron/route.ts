@@ -23,5 +23,13 @@ export async function GET(req: Request) {
 
 
 function triggerWorkflow(workflowId: string) {
-    const triggerApiUrl = getAppUrl(`/api/workflows/execute?workflowId=${workflowId}`);
+    const triggerApiUrl = getAppUrl(`api/workflows/execute?workflowId=${workflowId}`);
+    
+    fetch(triggerApiUrl, {
+        headers: {
+            Authorization: `Bearer ${process.env.API_SECRET!}`,
+        },
+        cache: "no-store",
+        signal: AbortSignal.timeout(5000),
+    }).catch(error => console.error("Error triggering workflow with id", workflowId, ":error->", error.message))
 }
