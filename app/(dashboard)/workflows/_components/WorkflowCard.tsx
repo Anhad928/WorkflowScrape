@@ -25,6 +25,7 @@ import SchedulerDialog from './SchedulerDialog';
 import { Badge } from '@/components/ui/badge';
 import ExecutionStatusIndicator from '@/app/workflow/runs/[workflowId]/_components/ExecutionStatusIndicator';
 import { format, formatDistanceToNow } from 'date-fns';
+import {formatInTimeZone} from "date-fns-tz";
 
 const statusColors = {
     [WorkflowStatus.DRAFT]: 'bg-yellow-400 text-yellow-600',
@@ -137,11 +138,15 @@ function ScheduleSection({isDraft, creditsCost, workflowId, cron} : { isDraft: b
 
 
 function LastRunDetails({workflow}: {workflow: Workflow}) {
+    const isDraft = workflow.status === WorkflowStatus.DRAFT;
+    if (isDraft){
+        return null;
+    }
     const {lastRunAt, lastRunStatus, lastRunId, nextRunAt} = workflow;
     const formattedStartedAt = lastRunAt && formatDistanceToNow(lastRunAt, {addSuffix: true})
 
     const nextSchedule = nextRunAt && format(nextRunAt, 'yyyy-MM-dd HH:mm:ss');
-    const nextScheduleUTC = nextRunAt &&
+    const nextScheduleUTC = nextRunAt && formatInTimeZone(nextRunAt, "UTC", "HH:mm")
     return (
         <div className='bg-primary/5 px-4 py-1 flex justify-between items-center text-muted-foreground'>
             <div className='flex items-center text-sm gap-2'>
@@ -155,10 +160,11 @@ function LastRunDetails({workflow}: {workflow: Workflow}) {
                 {!lastRunAt && <p>No runs found</p>}
             </div>
             {nextRunAt && (
-            <div className=''>
-                <ClockIcon />
+            <div className='flex items-center text-sm gap-2'>
+                <ClockIcon size={12}/>
                 <span>Next Run at: </span>
                 <span>{nextSchedule}</span>
+                <span className='text-xs'>({nextScheduleUTC} UTC)</span>
             </div>)}
         </div>
     )
