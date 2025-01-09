@@ -3,7 +3,8 @@ import { ExecuteWorkflow } from "@/lib/workflow/executeWorkflow";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { ExecutionPhaseStatus, WorkflowExecutionPlan, WorkflowExecutionStatus, WorkflowExecutionTrigger } from "@/types/workflow";
 import { timingSafeEqual } from "crypto";
-import { number } from "zod";
+import parser from 'cron-parser';
+
 
 function isValidSecret(secret: string) {
     const API_SECRET = process.env.API_SECRET;
@@ -49,7 +50,11 @@ export async function GET(request: Request) {
         return Response.json({ error: "bad request" }, { status: 400 });
     }
 
-    const execution = await prisma.workflowExecution.create({
+
+    try {
+        const cron = parser.parseExpression(workflow.cron!, { utc: true });
+        const nextRun = cron.next().toDate();
+        const execution = await prisma.workflowExecution.create({
         data: {
             workflowId,
             userId: workflow.userId,
@@ -73,6 +78,12 @@ export async function GET(request: Request) {
         },
     });
 
-    await ExecuteWorkflow(execution.id);
+    await ExecuteWorkflow(execution.id, nextRun);
     return new Response(null, { status: 200 });
+    } catch (error) {
+        return Response.json({ error: "internal server error" }, { status: 500 });
+    }
+
+
+    
 }
