@@ -3,6 +3,7 @@ export enum TaskType{
     PAGE_TO_HTML = "PAGE_TO_HTML",
     EXTRACT_TEXT_FROM_ELEMENT = "EXTRACT_TEXT_FROM_ELEMENT",
     FILL_INPUT = "FILL_INPUT",
+    CLICK_ELEMENT = "CLICK_ELEMENT",
 }
 
 export enum TaskParamType {

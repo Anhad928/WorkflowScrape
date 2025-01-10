@@ -21,6 +21,7 @@ export default function TaskMenu() {
                 </AccordionTrigger>
                 <AccordionContent className='flex flex-col gap1'>
                     <TaskMenuBtn taskType={TaskType.FILL_INPUT} />
+                    <TaskMenuBtn taskType={TaskType.CLICK_ELEMENT} />
                 </AccordionContent>
         </AccordionItem>
             <AccordionItem value="extraction">
