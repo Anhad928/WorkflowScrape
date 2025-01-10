@@ -52,7 +52,9 @@ function WorkflowCard({ workflow}: { workflow: Workflow}) {
             <div>
                 <h3 className='text-base font-bold text-muted-foreground
                 flex items-center'>
+                    <TooltipWrapper content = {workflow.description}>
                     <Link href={`/workflow/editor/${workflow.id}`} className='flex items-center hover:underline'>{workflow.name}</Link>
+                    </TooltipWrapper>
                 {isDraft && (
                     <span className='ml-2 px-2 py-0.5 text-xs font-medium bg-yellow-100
                     text-yellow-800 rounded-full'>Draft</span>
