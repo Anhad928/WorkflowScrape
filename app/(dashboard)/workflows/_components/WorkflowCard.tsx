@@ -26,6 +26,7 @@ import { Badge } from '@/components/ui/badge';
 import ExecutionStatusIndicator, { ExecutionStatusLabel } from '@/app/workflow/runs/[workflowId]/_components/ExecutionStatusIndicator';
 import { format, formatDistanceToNow } from 'date-fns';
 import {formatInTimeZone} from "date-fns-tz";
+import DuplicateWorkflowDialog from './DuplicateWorkflowDialog';
 
 const statusColors = {
     [WorkflowStatus.DRAFT]: 'bg-yellow-400 text-yellow-600',
@@ -37,7 +38,7 @@ function WorkflowCard({ workflow}: { workflow: Workflow}) {
     console.log(workflow.name)
     console.log(workflow.id)
   return (<Card className='broder border-separate shadow-sm rounded-lg overflow-hidden hover:shadow-md
-  dark:shado-primary/30'>
+  dark:shadow-primary/30 group/card'>
     <CardContent className='p-4 flex items-center justify-between h-[100px]'>
         <div className='flex items-center justify-end space-x-3'>
             <div className={cn("w-10 h-10 rounded-full flex items-center justify-center",
@@ -57,6 +58,8 @@ function WorkflowCard({ workflow}: { workflow: Workflow}) {
                     text-yellow-800 rounded-full'>Draft</span>
                 )
                 }
+
+                <DuplicateWorkflowDialog workflowId={workflow.id}/>
                </h3>
                <ScheduleSection isDraft={isDraft} creditsCost={workflow.creditsCost} workflowId={workflow.id} cron= {workflow.cron}/>
             </div>

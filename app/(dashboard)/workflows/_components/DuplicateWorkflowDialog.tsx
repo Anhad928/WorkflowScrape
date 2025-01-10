@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button';
-import { Layers2Icon, Loader2 } from 'lucide-react';
+import { CopyIcon, Layers2Icon, Loader2 } from 'lucide-react';
 import CustomDialogHeader from '@/components/CustomDialogHeader'; // Ensure this component returns a valid React element
 import { useForm } from 'react-hook-form';
 import { createWorkflowSchema, createWorkflowSchemaType, duplicateWorkflowSchema, duplicateWorkflowSchemaType } from '@/schema/workflow';
@@ -24,13 +24,17 @@ import { useMutation } from '@tanstack/react-query';
 import { CreateWorkflow } from '@/actions/workflows/createWorkflow';
 import { toast } from 'sonner';
 import { DuplicateWorkflow } from '@/actions/workflows/duplicateWorkflow';
+import { cn } from '@/lib/utils';
 
-function DuplicateWorkflowDialog({ triggerText }: { triggerText?: string }) {
+function DuplicateWorkflowDialog({ workflowId }: { workflowId?: string }) {
     const [open, setOpen] = useState(false);
 
     const form = useForm<duplicateWorkflowSchemaType>({
         resolver: zodResolver(duplicateWorkflowSchema),
-        defaultValues: {},
+        defaultValues: {
+            workflowId,
+
+        },
     });
     const { mutate, isPending } = useMutation({
         mutationFn: DuplicateWorkflow,
@@ -53,7 +57,9 @@ function DuplicateWorkflowDialog({ triggerText }: { triggerText?: string }) {
         setOpen(open);
     }}>
       <DialogTrigger asChild>
-        <Button>{"Duplicate workflow"}</Button>
+        <Button variant={"ghost"} size={"icon"} className={cn("ml-2 transition-opacity duration-200 opacity-0 group-hover/card:opacity-100")}>
+            <CopyIcon className='w-4 h-4 text-muted-foreground cursor-pointer'/>
+        </Button>
     </DialogTrigger>
     <DialogContent className='px-0'>
         <CustomDialogHeader 
