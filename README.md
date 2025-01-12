@@ -1,6 +1,6 @@
 # 🚀 Workflow Scrape
 
-Build a modern **workflow-based** web scraping SaaS with **Next.js**, **React**, **TypeScript**, **React Flow**, **Prisma**, and **React Query**. This project/course walks you through setting up authentication, crafting a workflow editor, connecting to databases, and ultimately providing a robust scraping automation platform for end users.
+Build a modern **workflow-based** web scraping SaaS with **Next.js**, **React**, **TypeScript**, **React Flow**, **Prisma**, and **React Query**. This project walks you through setting up authentication, crafting a workflow editor, connecting to databases, and ultimately providing a robust scraping automation platform for end users.
 
 > **Note**: This README focuses on the project's initial setup and core workflow functionalities—covering everything from project configuration to workflow creation and editing. This is my JOURNEY!
 
