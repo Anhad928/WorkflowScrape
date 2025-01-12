@@ -7,6 +7,7 @@ import { ExtractTextFromElementExecutor } from "./ExtractTextFromElementExecutor
 import { FillInputExecutor } from "./FillInputExecutor";
 import { ClickElementExecutor } from "./ClickElementExecutor";
 import { WaitForElementExecutor } from "./WaitForElementExecutor";
+import { DelviverViaWebhookExecutor } from "./DeliverViaWebhookExecutor";
 
 type ExecutorFn<T extends WorkflowTask> = (enviornment: ExecutionEnviornment<T>) => Promise<boolean>;
 
@@ -20,5 +21,6 @@ export const ExecutorRegistry: RegistryType = {
     FILL_INPUT: FillInputExecutor,
     CLICK_ELEMENT: ClickElementExecutor,
     WAIT_FOR_ELEMENT: WaitForElementExecutor,
+    DELIVER_VIA_WEBHOOK: DelviverViaWebhookExecutor,
 
 };

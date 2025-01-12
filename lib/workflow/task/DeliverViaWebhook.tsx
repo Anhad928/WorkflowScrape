@@ -16,7 +16,7 @@ export const DeliverViaWebhookTask = {
             required: true,
         },
         {
-            name: "Selector",
+            name: "Body",
             type: TaskParamType.STRING,
             required: true,
         }
