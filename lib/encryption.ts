@@ -26,4 +26,9 @@ export const symmetricDecrypt = (encryted: string) => {
     
     const textParts = encryted.split(":");
     const iv = Buffer.from(textParts.shift() as string, "hex");
-}
+    const encryptedText = Buffer.from(textParts.join(":"), "hex");
+    const decipher = crypto.createDecipheriv(ALG, Buffer.from(key, "hex"), iv);
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
+};

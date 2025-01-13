@@ -1,5 +1,6 @@
 "use server";
 
+import { symmetricEncrypt } from "@/lib/encryption";
 import prisma from "@/lib/prisma";
 import { createCredentialSchema, createCredentialSchemaType } from "@/schema/credential";
 import { auth } from "@clerk/nextjs/server";
