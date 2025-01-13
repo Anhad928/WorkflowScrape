@@ -22,7 +22,7 @@ const routes = [
         icon: Layers2Icon,
     },
     {
-        href: "credentials",
+        href: "Credentials",
         label: "Credentials",
         icon: ShieldCheckIcon,
     },
