@@ -4,6 +4,7 @@ import { ShieldIcon, ShieldOffIcon } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton';
 import { GetCredentialsForUser } from '@/actions/credentials/getCredentialsForUser';
 import { Card } from '@/components/ui/card';
+import CreateCredentialDialog from './_components/CreateCredentialDialog';
 export default function CredentialsPage() {
   return (
     <div className='flex flex-1 flex-col h-full'>
@@ -12,6 +13,7 @@ export default function CredentialsPage() {
           <h1 className='text-3xl font-bold'>Credentials</h1>
           <p className='text-muted-foreground'>Manage your Credentials</p>
         </div>
+        <CreateCredentialDialog triggerText='Create your first credential'/>
       </div>
 
       <div className='h-full py-6 space-y-8'>
@@ -50,6 +52,7 @@ async function UserCredentials() {
             <p className='text-bold'>No credentials created yet</p>
             <p className='text-sm text-muted-foreground'>Click the button below to create your first credential</p>
           </div>
+          <CreateCredentialDialog triggerText='Create your first credential'/>
         </div>
       </Card>
     )
