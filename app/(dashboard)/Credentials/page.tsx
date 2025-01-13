@@ -58,8 +58,8 @@ async function UserCredentials() {
     )
   }
   return (
-    <div>
-      User creds
-    </div>
+    <pre>
+      {JSON.stringify(credentials, null, 4)}
+    </pre>
   );
 }
