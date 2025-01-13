@@ -4,26 +4,32 @@ import { BrainIcon, CodeIcon, Flashlight, GlobeIcon, LucideProps, MousePointerCl
 
 export const ExtractDataWithAITask = {
     type: TaskType.EXTRACT_DATA_WITH_AI,
-    label: "Click Element",
+    label: "Extract Data with AI",
     icon: (props) => <BrainIcon className="stroke-rose-400" {...props} />,
     isEntryPoint: false,
     credits: 4,
     inputs: [
         {
-            name: "Web Page",
-            type: TaskParamType.BROWSER_INSTANCE,
+            name: "Content",
+            type: TaskParamType.STRING,
             required: true,
         },
         {
-            name: "Selector",
+            name: "Credentials",
+            type: TaskParamType.CREDENTIAL,
+            required: true,
+        },
+        {
+            name: "Prompt",
             type: TaskParamType.STRING,
             required: true,
+            variant: "textarea",
         }
     ] as const,
     outputs: [
         {
-            name: "Web Page",
-            type: TaskParamType.BROWSER_INSTANCE,
+            name: "Extracted data",
+            type: TaskParamType.STRING,
         },
     ] as const,
 } satisfies WorkflowTask;

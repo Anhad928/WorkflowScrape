@@ -31,6 +31,7 @@ export default function TaskMenu() {
                 <AccordionContent className='flex flex-col gap1'>
                     <TaskMenuBtn taskType={TaskType.PAGE_TO_HTML} />
                     <TaskMenuBtn taskType={TaskType.EXTRACT_TEXT_FROM_ELEMENT} />
+                    <TaskMenuBtn taskType={TaskType.EXTRACT_DATA_WITH_AI}/>
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="timing">
