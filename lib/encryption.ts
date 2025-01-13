@@ -11,5 +11,19 @@ export const symmetricEncrypt = (data:string) => {
 
     const iv = crypto.randomBytes(16);
 
+    const cipher = crypto.createCipheriv(ALG, Buffer.from(key, "hex"), iv);
+
+    // abcd => d43d
+    let encrypted = cipher.update(data);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return iv.toString("hex") + ":" + encrypted.toString("hex");
+
+};
+
+export const symmetricDecrypt = (encryted: string) => {
+    const key = process.env.ENCRYPYION_KEY;
+    if (!key) throw new Error("Encryption key not found");
     
+    const textParts = encryted.split(":");
+    const iv = Buffer.from(textParts.shift() as string, "hex");
 }
