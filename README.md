@@ -1,6 +1,6 @@
 # 🚀 Workflow Scrape
 
-Build a modern **workflow-based** web scraping SaaS with **Next.js**, **React**, **TypeScript**, **React Flow**, **Prisma**, and **React Query**. This project/course walks you through setting up authentication, crafting a workflow editor, connecting to databases, and ultimately providing a robust scraping automation platform for end users.
+Build a modern **workflow-based** web scraping SaaS with **Next.js**, **React**, **TypeScript**, **React Flow**, **Prisma**, and **React Query**. This project walks you through setting up authentication, crafting a workflow editor, connecting to databases, and ultimately providing a robust scraping automation platform for end users.
 
 > **Note**: This README focuses on the project's initial setup and core workflow functionalities—covering everything from project configuration to workflow creation and editing. This is my JOURNEY!
 
@@ -22,7 +22,6 @@ By the end of this course, you’ll have a firm grasp of how to build a producti
 ## ⚙️ Tech Stack
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![React Flow](https://img.shields.io/badge/React_Flow-0078D7?style=for-the-badge&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=Prisma&logoColor=white)
