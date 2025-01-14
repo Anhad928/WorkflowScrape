@@ -19,7 +19,7 @@ export default function TaskMenu() {
                 <AccordionTrigger className='font-bold'>
                     User Interactions
                 </AccordionTrigger>
-                <AccordionContent className='flex flex-col gap1'>
+                <AccordionContent className='flex flex-col gap-1'>
                     <TaskMenuBtn taskType={TaskType.FILL_INPUT} />
                     <TaskMenuBtn taskType={TaskType.CLICK_ELEMENT} />
                 </AccordionContent>
@@ -28,7 +28,7 @@ export default function TaskMenu() {
                 <AccordionTrigger className='font-bold'>
                     Data Extraction
                 </AccordionTrigger>
-                <AccordionContent className='flex flex-col gap1'>
+                <AccordionContent className='flex flex-col gap-1'>
                     <TaskMenuBtn taskType={TaskType.PAGE_TO_HTML} />
                     <TaskMenuBtn taskType={TaskType.EXTRACT_TEXT_FROM_ELEMENT} />
                     <TaskMenuBtn taskType={TaskType.EXTRACT_DATA_WITH_AI}/>
@@ -38,7 +38,7 @@ export default function TaskMenu() {
                 <AccordionTrigger className='font-bold'>
                     Timing Controls
                 </AccordionTrigger>
-                <AccordionContent className='flex flex-col gap1'>
+                <AccordionContent className='flex flex-col gap-1'>
                     <TaskMenuBtn taskType={TaskType.WAIT_FOR_ELEMENT} />
                 </AccordionContent>
         </AccordionItem>
@@ -46,7 +46,7 @@ export default function TaskMenu() {
                 <AccordionTrigger className='font-bold'>
                     Result Delivery
                 </AccordionTrigger>
-                <AccordionContent className='flex flex-col gap1'>
+                <AccordionContent className='flex flex-col gap-1'>
                     <TaskMenuBtn taskType={TaskType.DELIVER_VIA_WEBHOOK} />
                 </AccordionContent>
         </AccordionItem>
