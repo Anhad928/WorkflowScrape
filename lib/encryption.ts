@@ -8,7 +8,8 @@ const ALG = "aes-256-cbc"; // key length is 32 bytes
 
 export const symmetricEncrypt = (data:string) => {
     const key = process.env.ENCRYPTION_KEY;
-    if (!key) throw new Error("Encryption key not found");
+    console.log("KEY", key);
+    if (!key){throw new Error("Encryption encrypt key not found");} 
 
     const iv = crypto.randomBytes(16);
 
@@ -22,8 +23,8 @@ export const symmetricEncrypt = (data:string) => {
 };
 
 export const symmetricDecrypt = (encryted: string) => {
-    const key = process.env.ENCRYPYION_KEY;
-    if (!key) throw new Error("Encryption key not found");
+    const key = process.env.ENCRYPTION_KEY;
+    if (!key) throw new Error("Encryption key decrypt not found");
     
     const textParts = encryted.split(":");
     const iv = Buffer.from(textParts.shift() as string, "hex");
