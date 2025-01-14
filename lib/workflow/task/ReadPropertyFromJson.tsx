@@ -11,20 +11,20 @@ export const ReadPropertyFromJsonTask = {
     credits: 1,
     inputs: [
         {
-            name: "Web Page",
-            type: TaskParamType.BROWSER_INSTANCE,
+            name: "JSON",
+            type: TaskParamType.STRING ,
             required: true,
         },
         {
-            name: "Selector",
+            name: "Property name",
             type: TaskParamType.STRING,
             required: true,
         }
     ] as const,
     outputs: [
         {
-            name: "Web Page",
-            type: TaskParamType.BROWSER_INSTANCE,
+            name: "Property value",
+            type: TaskParamType.STRING,
         },
     ] as const,
 } satisfies WorkflowTask;
