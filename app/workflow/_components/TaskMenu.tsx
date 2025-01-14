@@ -20,6 +20,7 @@ export default function TaskMenu() {
                     User Interactions
                 </AccordionTrigger>
                 <AccordionContent className='flex flex-col gap-1'>
+                    <TaskMenuBtn taskType={TaskType.NAVIGATE_URL} />
                     <TaskMenuBtn taskType={TaskType.FILL_INPUT} />
                     <TaskMenuBtn taskType={TaskType.CLICK_ELEMENT} />
                 </AccordionContent>
