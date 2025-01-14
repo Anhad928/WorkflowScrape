@@ -55,11 +55,27 @@ export async function ExtractDataWithAiExecutor(
                 {
                     role: "system",
                     content: "You are a webscraper helper that extracts data from HTML or texts. You will be given a piece of text or HTML content as input and also the prompt with the data you want to extract. The response should always be only the extracted data as a JSON array or object, without any additional words or explanations. Analyze the input carefully and extract the data  precisely based on the prompt. If no data is found, return an empty JSON array. Work only with the provided content and ensure the output is always a valid JSON array without any surrounding text.",
-                    
-                }
-            ]
+
+                },
+                {
+                    role: "user",
+                    content: content,
+                },
+                { role: "user", content: prompt },
+            ],
+            temperature: 1,
         });
-        enviornment.setOutput("Extracted data",JSON.stringify(mockExtractedData));
+
+        enviornment.log.info(`Prompt tokens: ${response.usage?.prompt_tokens}`);
+        enviornment.log.info(`Completion tokens: ${response.usage?.completion_tokens}`);
+
+        const result = response.choices[0].message?.content;
+        if (!result) {
+            enviornment.log.error("empty response from AI");
+            return false;
+        }
+
+        enviornment.setOutput("Extracted data", result);
         return true;
     } catch (error: any) {
         enviornment.log.error(error.message);
