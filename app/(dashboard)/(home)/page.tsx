@@ -1,10 +1,12 @@
 import { GetPeriods } from '@/actions/analytics/getPeriods';
-import React from 'react'
+import React, { Suspense } from 'react'
 
 function HomePage() {
   return (
     <div>
-      Home
+      <Suspense>
+        <PeriodSelectorWrapper />
+      </Suspense>
     </div>
   )
 }
