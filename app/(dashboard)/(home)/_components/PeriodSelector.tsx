@@ -31,8 +31,8 @@ export default function PeriodSelector({periods, selectedPeriod}: {periods: Peri
     const router = useRouter();
   return (
     <Select 
-        value={`${selectedPeriod.month}-${selectedPeriod.year}`}
-        onValueChange={value => {
+    value={`${selectedPeriod.month}-${selectedPeriod.year}`}
+     onValueChange={value => {
         const [month, year ]= value.split('-');
         const params = new URLSearchParams(searchParams)
         params.set('month', month);

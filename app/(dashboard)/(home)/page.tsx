@@ -39,4 +39,5 @@ async function StatsCards({ selectedPeriod }: { selectedPeriod: Period }) {
   const data = await GetStatsCardsValues(selectedPeriod)
   return <pre>{JSON.stringify(data, null, 4)}</pre>
 }
+
 export default HomePage
