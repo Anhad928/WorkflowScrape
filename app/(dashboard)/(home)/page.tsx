@@ -8,6 +8,7 @@ import { GetStatsCardsValues } from '@/actions/analytics/getStatsCardsValues';
 import { CirclePlayIcon, CoinsIcon, WaypointsIcon } from 'lucide-react';
 import StatsCard from './_components/StatsCard';
 import { GetWorkflowExecutionStats } from '@/actions/analytics/getWorkflowExecutionStats';
+import ExecutionStatusChart from './_components/ExecutionStatusChart';
 
 function HomePage({searchParams}: {
   searchParams: {month?: string, year?: string};
@@ -86,7 +87,7 @@ function StatsCardSkeleton(){
 async function StatsExecutionStatus({selectedPeriod}: {selectedPeriod: Period}) {
   const data = await GetWorkflowExecutionStats(selectedPeriod);
   return (
-    <pre>{JSON.stringify(data, null, 4)}</pre>
+    <ExecutionStatusChart />
   )
 }
 
