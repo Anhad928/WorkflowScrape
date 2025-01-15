@@ -4,7 +4,7 @@ import { CodeIcon, Flashlight, GlobeIcon, LucideProps, TextIcon } from "lucide-r
 
 export const ExtractTextFromElementTask = {
     type: TaskType.EXTRACT_TEXT_FROM_ELEMENT,
-    label: "Get Text from HTML Element",
+    label: "Get Text from Element",
     icon: (props: LucideProps) => (
         <TextIcon className="stroke-rose-400" {...props} />
     ),

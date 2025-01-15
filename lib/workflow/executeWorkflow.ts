@@ -258,7 +258,7 @@ async function cleanupEnviornment(enviornment: Enviornment) {
     // }
 
     if (enviornment.browser) {
-        await enviornment.browser.close().catch(err => console.log("cannot close browser, reason:", err));
+        // await enviornment.browser.close().catch(err => console.log("cannot close browser, reason:", err));
     }
 }
 

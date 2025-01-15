@@ -10,6 +10,8 @@ import {
 import { TaskType } from '@/types/task';
 import { TaskRegistry } from '@/lib/workflow/task/registry';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { CoinsIcon } from 'lucide-react';
 
 export default function TaskMenu() {
   return (
@@ -79,5 +81,9 @@ function TaskMenuBtn({taskType}: {taskType: TaskType}) {
             <task.icon size={20} />
             {task.label}
         </div>
+        <Badge className='gap-2 flex items-center' variant={"outline"}>
+            <CoinsIcon size={16} />
+            {task.credits}
+        </Badge>
     </Button>
 }
