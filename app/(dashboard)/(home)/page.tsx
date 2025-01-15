@@ -87,7 +87,7 @@ function StatsCardSkeleton(){
 async function StatsExecutionStatus({selectedPeriod}: {selectedPeriod: Period}) {
   const data = await GetWorkflowExecutionStats(selectedPeriod);
   return (
-    <ExecutionStatusChart />
+    <ExecutionStatusChart data={data} />
   )
 }
 
