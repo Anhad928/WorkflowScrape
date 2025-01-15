@@ -11,10 +11,10 @@ export async function NavigateUrlExecutor(
     try {
         const url = enviornment.getInput("URL")
         if (!url) {
-            enviornment.log.error("input -> selector not defined");
+            enviornment.log.error("input -> URL not defined");
         }
 
-        await enviornment.getPage()!.click(url);
+        await enviornment.getPage()!.goto(url);
         enviornment.log.info(`Visited ${url}`);
         return true;
     } catch (error: any) {
