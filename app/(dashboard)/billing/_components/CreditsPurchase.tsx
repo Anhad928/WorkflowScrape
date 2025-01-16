@@ -1,5 +1,6 @@
 "use client";
 
+import { PurchaseCredits } from '@/actions/billing/purchaseCredits';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -50,7 +51,11 @@ export default function CreditsPurchase() {
             </RadioGroup>
         </CardContent>
         <CardFooter>
-            <Button>
+            <Button className='w-full' disabled={mutation.isPending}
+            onClick={() => {
+                mutation.mutate(selectedPack);
+            }}
+            >
                 <CreditCard className='mr-2 h-5 w-5'/> Purchase Credits
             </Button>
         </CardFooter>
