@@ -1,0 +1,98 @@
+{
+  "id": "cs_test_a1tYc7uVuwsU3XQciHpkP8jsKBFbQdvy28sCetVIigaIjnOL6h3CKxUHIr",
+  "object": "checkout.session",
+  "adaptive_pricing": { "enabled": false },
+  "after_expiration": null,
+  "allow_promotion_codes": null,
+  "amount_subtotal": 6999,
+  "amount_total": 6999,
+  "automatic_tax": { "enabled": false, "liability": null, "status": null },
+  "billing_address_collection": null,
+  "cancel_url": "http://localhost:3000/billing",
+  "client_reference_id": null,
+  "client_secret": null,
+  "consent": null,
+  "consent_collection": null,
+  "created": 1737067227,
+  "currency": "cad",
+  "currency_conversion": null,
+  "custom_fields": [],
+  "custom_text": {
+    "after_submit": null,
+    "shipping_address": null,
+    "submit": null,
+    "terms_of_service_acceptance": null
+  },
+  "customer": "cus_RbEClefNKqjsT0",
+  "customer_creation": "if_required",
+  "customer_details": {
+    "address": {
+      "city": "Edmonton",
+      "country": "CA",
+      "line1": "11724 University Avenue",
+      "line2": null,
+      "postal_code": "T6G 1Z5",
+      "state": "AB"
+    },
+    "email": "anhadpre@ualberta.ca",
+    "name": "Anhadpreet Singh",
+    "phone": null,
+    "tax_exempt": "none",
+    "tax_ids": []
+  },
+  "customer_email": null,
+  "expires_at": 1737153627,
+  "invoice": "in_1Qi1jsADmRfAJ0qUHT4saVA9",
+  "invoice_creation": {
+    "enabled": true,
+    "invoice_data": {
+      "account_tax_ids": null,
+      "custom_fields": null,
+      "description": null,
+      "footer": null,
+      "issuer": { "type": "self" },
+      "metadata": {},
+      "rendering_options": null
+    }
+  },
+  "livemode": false,
+  "locale": null,
+  "metadata": {
+    "userId": "user_2qWBRAQ5T1puPiIVaHnzSaqKXZi",
+    "packId": "LARGE"
+  },
+  "mode": "payment",
+  "payment_intent": "pi_3Qi1joADmRfAJ0qU0rfmmY4E",
+  "payment_link": null,
+  "payment_method_collection": "if_required",
+  "payment_method_configuration_details": {
+    "id": "pmc_1Qi0lxADmRfAJ0qU0RDBe0rX",
+    "parent": null
+  },
+  "payment_method_options": {},
+  "payment_method_types": ["card", "affirm", "klarna", "link"],
+  "payment_status": "paid",
+  "phone_number_collection": { "enabled": false },
+  "recovered_from": null,
+  "saved_payment_method_options": {
+    "allow_redisplay_filters": ["always"],
+    "payment_method_remove": null,
+    "payment_method_save": null
+  },
+  "setup_intent": null,
+  "shipping_address_collection": null,
+  "shipping_cost": null,
+  "shipping_details": null,
+  "shipping_options": [],
+  "status": "complete",
+  "submit_type": null,
+  "subscription": null,
+  "success_url": "http://localhost:3000/billing",
+  "total_details": {
+    "amount_discount": 0,
+    "amount_shipping": 0,
+    "amount_tax": 0
+  },
+  "ui_mode": "hosted",
+  "url": null
+}
