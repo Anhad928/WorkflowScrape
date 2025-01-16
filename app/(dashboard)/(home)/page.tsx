@@ -10,6 +10,7 @@ import StatsCard from './_components/StatsCard';
 import { GetWorkflowExecutionStats } from '@/actions/analytics/getWorkflowExecutionStats';
 import ExecutionStatusChart from './_components/ExecutionStatusChart';
 import { GetCreditUsageInPeriod } from '@/actions/analytics/getCreditUsageInperiod';
+import CreditUsageChart from '../billing/_components/CreditUsageChart';
 
 function HomePage({searchParams}: {
   searchParams: {month?: string, year?: string};
@@ -99,7 +100,7 @@ async function StatsExecutionStatus({selectedPeriod}: {selectedPeriod: Period}) 
 async function CreditsUsageInPeriod({selectedPeriod}: {selectedPeriod: Period}) {
   const data = await GetCreditUsageInPeriod(selectedPeriod);
   return (
-    <CreditsUsageChart 
+    <CreditUsageChart 
     data={data}
     title="Daily credits spent"
     description= "Daily credits consumed in selected period"
