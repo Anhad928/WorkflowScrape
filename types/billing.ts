@@ -10,7 +10,7 @@ export type CreditsPack = {
     label: string;
     credits: number;
     price: number;
-
+    priceId: string;
 };
 
 export const CreditsPack: CreditsPack[] = [
@@ -20,6 +20,7 @@ export const CreditsPack: CreditsPack[] = [
         label: "1,000 Credits",
         credits: 1000,
         price: 999, //$9.99
+        priceId: process.env.STRIPE_SMALL_PACK_PRICE_ID!,
     },
     {
         id: PackId.MEDIUM,
@@ -27,6 +28,7 @@ export const CreditsPack: CreditsPack[] = [
         label: "5,000 Credits",
         credits: 5000,
         price: 3999, //$39.99
+        priceId: process.env.STRIPE_MEDIUM_PACK_PRICE_ID!,
     },
     {
         id: PackId.LARGE,
@@ -34,6 +36,7 @@ export const CreditsPack: CreditsPack[] = [
         label: "10,000 Credits",
         credits: 10000,
         price: 6999, //$69.99
+        priceId: process.env.STRIPE_LARGE_PACK_PRICE_ID!,
     },
 ];
 
