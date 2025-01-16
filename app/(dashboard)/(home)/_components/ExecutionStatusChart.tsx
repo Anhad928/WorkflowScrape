@@ -19,8 +19,19 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Layers2 } from 'lucide-react';
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 
 type ChartData = Awaited<ReturnType<typeof GetWorkflowExecutionStats>>
+const chartConfig = {
+  success: {
+    label: "Success",
+    color: "hsl(var(--chart-2))",
+  },
+  failed: {
+    label: "Failed",
+    color: "hsl(var(--chart-1))",
+  }
+}
 export default function ExecutionStatusChart({ data }: { data: ChartData }) {
   return (
     <Card>
@@ -34,7 +45,34 @@ export default function ExecutionStatusChart({ data }: { data: ChartData }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <pre>{JSON.stringify(data, null, 4)}</pre>
+          <ChartContainer config={chartConfig} className='max-h-[200px] w-full'>
+            <AreaChart 
+            data={data} 
+            height={200}
+            accessibilityLayer
+            margin={{top:20}}
+            >
+            <CartesianGrid vertical={false}/>
+            <XAxis 
+            dataKey={"date"} 
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            minTickGap={32}
+            tickFormatter={value =>{
+              const date = new Date(value);
+              return date.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              });
+            }}
+            />
+            <ChartLegend content={<ChartLegendContent />}/>
+            <ChartTooltip content={<ChartTooltipContent className='w-[250px]'/>}/>
+            <Area dataKey={"success"}/>
+            <Area dataKey={"failed"}/>
+            </AreaChart>
+          </ChartContainer>
         </CardContent>
     </Card>
   )
