@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CoinsIcon } from "lucide-react";
 import { Suspense } from "react";
+import CreditsPurchase from "./_components/CreditsPurchase";
 
 export default function BillingPage() {
     return (
@@ -12,6 +13,7 @@ export default function BillingPage() {
             <Suspense fallback={<Skeleton className="h-[166px] w-full"/>}>
                 <BalanceCard />
             </Suspense>
+            <CreditsPurchase />
         </div>
     )
 }
