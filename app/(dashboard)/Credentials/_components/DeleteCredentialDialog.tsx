@@ -50,7 +50,7 @@ function DeleteCredentialDialog({name}: Props) {
             <AlertDialogHeader>
                 <AlertDialogTitle>Are you Sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                    If you delete this Credential, you won't be able to recover it back again.
+                    If you delete this Credential, you wont be able to recover it back again.
                 <div className="flex flex-col py-4 gap-2">
                     <p>If you are sure, enter <b>{name}</b> to confirm:
                     </p> <Input value={confirmText} onChange={(e) => setConfirmText(e.target.value)}/>
