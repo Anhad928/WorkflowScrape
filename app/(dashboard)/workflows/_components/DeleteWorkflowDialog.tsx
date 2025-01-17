@@ -44,7 +44,7 @@ function DeleteWorkflowDialog({open, setOpen, workflowName, workflowId}: Props) 
             <AlertDialogHeader>
                 <AlertDialogTitle>Are you Sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                    If you delete this workflow, you won't be able to recover it back again.
+                    If you delete this Credential, you will not be able to recover it again.
                 <div className="flex flex-col py-4 gap-2">
                     <p>If you are sure, enter <b>{workflowName}</b> to confirm:
                     </p> <Input value={confirmText} onChange={(e) => setConfirmText(e.target.value)}/>
